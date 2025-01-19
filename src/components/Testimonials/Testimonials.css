@@ -1,0 +1,5 @@
+.bgImg{
+    background-image: url('../../assets/testimonials.webp');
+    background-size: cover;
+    /* background-position: right; */
+}

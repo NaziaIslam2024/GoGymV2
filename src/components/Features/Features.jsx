@@ -21,8 +21,22 @@ const Features = () => {
             </div>
             <div className='max-w-6xl mx-auto mb-20'>
                 <Swiper
-                    slidesPerView={4}
+                    slidesPerView={1}
                     spaceBetween={10}
+                    breakpoints={{
+                        // When the screen width is >= 640px
+                        640: {
+                          slidesPerView: 2,
+                        },
+                        // When the screen width is >= 768px
+                        768: {
+                          slidesPerView: 3,
+                        },
+                        // When the screen width is >= 1024px
+                        1024: {
+                          slidesPerView: 4,
+                        },
+                      }}
                     navigation={true}
                     modules={[Navigation]}
                     className="mySwiper">

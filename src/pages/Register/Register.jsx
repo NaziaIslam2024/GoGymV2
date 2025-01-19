@@ -11,11 +11,13 @@ import useAuth from "../../hooks/useAuth";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
+import SocialLogin from '../../shared/SocialLogin';
 
 const SignUp = () => {
     const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
     const { createUser, updateUser } = useAuth();
+
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const onSubmit = data => {
         console.log(data);
@@ -142,19 +144,7 @@ const SignUp = () => {
                 <Typography className="sora text-gray-500 mb-4 mt-8 text-center font-normal">
                     one-click signup
                 </Typography>
-                <Button
-                    variant="outlined"
-                    size="lg"
-                    className="max-w-screen-lg sm:w-96 flex h-12 border-black bg-[#e2ff31] items-center justify-center gap-2"
-                    fullWidth
-                >
-                    <img
-                        src={`https://www.material-tailwind.com/logos/logo-google.png`}
-                        alt="google"
-                        className="h-6 w-6"
-                    />{" "}
-                    sign up with google
-                </Button>
+                <SocialLogin title={"Signup"}></SocialLogin>
                 <Typography color="gray" className="mt-6 mb-3 text-center font-normal">
                     Already have an account?{" "}
                     <a href='/login' className="font-medium text-gray-900">

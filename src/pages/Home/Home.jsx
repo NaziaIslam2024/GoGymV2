@@ -4,6 +4,8 @@ import Features from '../../components/Features/Features';
 import About from '../../components/About/About';
 import TrainerTeam from '../../components/TrainerTeam/TrainerTeam';
 import Testimonials from '../../components/Testimonials/Testimonials';
+import ForumPosts from '../../components/ForumPosts/ForumPosts';
+import Newsletter from '../../components/Newsletter/Newsletter';
 
 const Home = () => {
     return (
@@ -13,6 +15,8 @@ const Home = () => {
             <About></About>
             <TrainerTeam></TrainerTeam>
             <Testimonials></Testimonials>
+            <ForumPosts></ForumPosts>
+            <Newsletter></Newsletter>
         </div>
     );
 };

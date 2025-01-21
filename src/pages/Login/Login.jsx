@@ -25,7 +25,7 @@ const Login = () => {
         .then(result => {
             const user = result.user;
             Swal.fire({
-                title: "User Login Successful",
+                title: "Login Successful",
                 showClass: {
                     popup: `
                 animate__animated
@@ -41,6 +41,7 @@ const Login = () => {
                 `
                 }
             });
+            console.log(from)
             navigate(from, { replace: true });
         })
         

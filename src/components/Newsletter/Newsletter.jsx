@@ -1,12 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
-import {
-    Card,
-    Input,
-    Button,
-    Typography,
-} from "@material-tailwind/react";
+import {Input, Typography} from "@material-tailwind/react";
 import Swal from 'sweetalert2';
 
 const Newsletter = () => {
@@ -32,11 +27,11 @@ const Newsletter = () => {
     }
 
     return (
-        <div className='bg-[#e2ff31] bg-opacity-50 flex flex-col lg:flex-row lg:gap-10 p-10'>
-            <div className='lg:w-1/2 text-center lg:text-right items-center p-2'>
+        <div className='bg-[#e2ff31] bg-opacity-50 flex flex-col lg:flex-row lg:gap-10 p-10 items-center'>
+            <div className='lg:w-1/2 text-center lg:text-right p-2'>
                 <h1 className='mt-10 text-2xl lg:text-5xl font-bold libreFranklin lg:mt-20 uppercase'>Be the First to Know About Our Latest Updates</h1>
             </div>
-            <div className='justify-center'>
+            <div className=''>
                 <form onSubmit={handleSubmit(onSubmit)} className="w-80 max-w-screen-lg sm:w-96">
                     <div className="mb-1 flex flex-col gap-6 text-left">
                         <Typography variant="h6" color="blue-gray" className="-mb-3">

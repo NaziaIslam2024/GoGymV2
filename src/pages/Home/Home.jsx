@@ -6,6 +6,7 @@ import TrainerTeam from '../../components/TrainerTeam/TrainerTeam';
 import Testimonials from '../../components/Testimonials/Testimonials';
 import ForumPosts from '../../components/ForumPosts/ForumPosts';
 import Newsletter from '../../components/Newsletter/Newsletter';
+import FeaturedClasses from '../../components/FeaturedClasses/FeaturedClasses';
 
 const Home = () => {
     return (
@@ -13,10 +14,11 @@ const Home = () => {
             <Banner></Banner>
             <Features></Features>
             <About></About>
-            <TrainerTeam></TrainerTeam>
+            <FeaturedClasses></FeaturedClasses>
             <Testimonials></Testimonials>
             <ForumPosts></ForumPosts>
             <Newsletter></Newsletter>
+            <TrainerTeam></TrainerTeam>
         </div>
     );
 };

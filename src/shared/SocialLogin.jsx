@@ -2,13 +2,15 @@ import { Button } from '@material-tailwind/react';
 import React from 'react';
 import useAuth from '../hooks/useAuth';
 import useAxiosPublic from '../hooks/useAxiosPublic';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 const SocialLogin = ({title}) => {
     const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
     const {googleSignIn} = useAuth();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
     
     const handleGoogleSignUp = () => {
         googleSignIn()
@@ -22,7 +24,8 @@ const SocialLogin = ({title}) => {
             axiosPublic.post('/users', userInfo)
             .then(res =>{
                 console.log(res.data);
-                navigate('/');
+                // Swal.fire('Login successful')
+                navigate(from, { replace: true });
             })
         })
     } 

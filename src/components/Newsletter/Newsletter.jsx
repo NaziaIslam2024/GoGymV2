@@ -3,9 +3,11 @@ import { useForm } from 'react-hook-form';
 import useAxiosPublic from '../../hooks/useAxiosPublic';
 import {Input, Typography} from "@material-tailwind/react";
 import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const Newsletter = () => {
     const axiosPublic = useAxiosPublic();
+    const navigate = useNavigate();
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const onSubmit = data => {
         console.log(data);

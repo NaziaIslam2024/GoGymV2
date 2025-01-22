@@ -139,7 +139,7 @@ const TrainerDetails = () => {
                         <div className="w-96">
                             <List>
                                 {
-                                    availableSlots.map(item =><Link to='/trainer-booking' className="text-initial">
+                                    availableSlots.map(item =><Link to={`/trainer-booking/${_id}`} className="text-initial">
                                                                 <ListItem>{item}</ListItem>
                                                             </Link> )
                                 }

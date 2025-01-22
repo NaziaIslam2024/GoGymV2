@@ -54,9 +54,9 @@ const AppNavbar = () => {
                 color="blue-gray"
                 className="p-1 font-normal"
             >
-                <a href="#" className="flex items-center focus:bg-[#e2ff31] focus:p-2 focus:underline-offset-8 focus:text-black">
+                <NavLink to='/classes' className="flex items-center focus:bg-[#e2ff31] focus:p-2 focus:underline-offset-8 focus:text-black">
                     CLASSES
-                </a>
+                </NavLink>
             </Typography>
             <Typography
                 as="li"
@@ -76,9 +76,9 @@ const AppNavbar = () => {
                         color="blue-gray"
                         className="p-1 font-normal"
                     >
-                        <a href="#" className="flex items-center focus:bg-[#e2ff31] focus:p-2 focus:underline-offset-8 focus:text-black">
+                        <NavLink to='/dashboard' className="flex items-center focus:bg-[#e2ff31] focus:p-2 focus:underline-offset-8 focus:text-black">
                             DASHBOARD
-                        </a>
+                        </NavLink>
                     </Typography>
                     <Typography
                         as="li"

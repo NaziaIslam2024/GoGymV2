@@ -175,11 +175,25 @@ const AppNavbar = () => {
             </div>
             <Collapse open={openNav}>
                 {navList}
-                <div className="flex items-center gap-x-1">
-                    <Button fullWidth variant="text" size="sm" className="mb-4">
-                        <span>Log In</span>
-                    </Button>
-                </div>
+                {
+                    user ?
+                        <>
+                            <div className="flex items-center gap-x-1">
+                                <Button onClick={handleLogout} fullWidth variant="text" size="sm" className="mb-4">
+                                    <span>Logout</span>
+                                </Button>
+                            </div>
+                        </> : <>
+                            <div className="flex items-center gap-x-1">
+                                <Link to='/login'>
+                                    <Button fullWidth variant="text" size="sm" className="mb-4">
+                                        <span>Log In</span>
+                                    </Button>
+                                </Link>
+                            </div>
+                        </>
+                }
+
             </Collapse>
         </Navbar>
     );

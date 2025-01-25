@@ -97,7 +97,7 @@ const Login = () => {
                             <Input
                                 type="submit"
                                 value="Login"
-                                className="mt-4 text-[#e2ff31] !bg-black !border-t-blue-gray-200 focus:!border-t-gray-900 font-bold text-md"
+                                className="mt-4 !text-[#e2ff31] !bg-black !border-t-blue-gray-200 focus:!border-t-gray-900 font-bold text-md"
                                 labelProps={{
                                     className: "before:content-none after:content-none",
                                 }}

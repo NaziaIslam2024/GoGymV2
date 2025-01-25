@@ -15,6 +15,7 @@ import Finance from "../pages/Dashboard/Finance/Finance";
 import AppliedTrainer from "../pages/Dashboard/AppliedTrainer/AppliedTrainer";
 import AllTrainers from "../pages/Dashboard/AllTrainers/AllTrainers";
 import ForumPosts from "../components/ForumPosts/ForumPosts";
+import AllTrainerss from "../pages/AllTrainers/AllTrainers";
 
 export const router = createBrowserRouter([
     {
@@ -27,7 +28,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: 'trainers',
-                element: <AllTrainers></AllTrainers>
+                element: <AllTrainerss></AllTrainerss>
             },
             {
                 path: 'trainers/:id',

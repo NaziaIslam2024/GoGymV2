@@ -8,14 +8,14 @@ import { faFacebook, faTwitter, faInstagram, faLinkedinIn } from '@fortawesome/f
 
 const TrainerDetails = () => {
     const trainer = useLoaderData();
-    console.log(trainer.data);
-    const { trainerName, category, profileImage, bio, yearsOfExperience, socialIcons, _id, availableSlots } = trainer.data;
+    console.log(trainer);
+    const { name, category, url, bio, yearsOfExperience, socialIcons, _id, availableSlots } = trainer.data;
     return (
         <div>
             <div className='relative bg-[#e2ff31] bg-opacity-50 h-40 lg:h-48 flex flex-col justify-center items-center'>
-                <h1 className='text-5xl font-bold'>{trainerName}</h1>
+                <h1 className='text-5xl font-bold'>{name}</h1>
                 <div className='bg-white p-2 absolute rounded-full w-[200px] top-28 z-10 lg:top-32'>
-                    <img className='rounded-full' src={profileImage} alt="" />
+                    <img className='rounded-full' src={url} alt="" />
                 </div>
             </div>
             <div className='mt-36 text-gray-600 p-2 md:p-4 lg:max-w-5xl lg:mx-auto'>

@@ -2,7 +2,7 @@ import React from 'react';
 import useTrainers from '../../hooks/useTrainers';
 import TrainerCard from '../../components/TrainerCard/TrainerCard';
 
-const AllTrainers = () => {
+const AllTrainerss = () => {
     const [trainers, loading] = useTrainers();
     console.log(trainers)
     return (
@@ -19,4 +19,4 @@ const AllTrainers = () => {
     );
 };
 
-export default AllTrainers;
+export default AllTrainerss;

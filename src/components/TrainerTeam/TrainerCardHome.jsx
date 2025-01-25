@@ -9,17 +9,17 @@ import {
 } from "@material-tailwind/react";
 
 const TrainerCardHome = ({ trainer }) => {
-    const { trainerName, category, profileImage, bio } = trainer;
+    const { name, category, url, bio } = trainer;
     const truncateBio =  bio.split(" ").slice(0, 20).join(" ") + "...";
     return (
         <div>
             <Card className="w-96">
                 <CardHeader floated={false} className="h-80">
-                    <img className="w-full h-full" src={profileImage} alt="profile-picture" />
+                    <img className="w-full h-full" src={url} alt="profile-picture" />
                 </CardHeader>
                 <CardBody className="text-left">
                     <Typography variant="h4" color="blue-gray" className="mb-2 flex justify-between items-center">
-                        <span>{trainerName}</span>
+                        <span>{name}</span>
                         <Chip value={category} />
                     </Typography>
                     <Typography color="blue-gray" className="font-medium" textGradient>

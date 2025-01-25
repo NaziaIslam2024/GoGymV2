@@ -1,16 +1,125 @@
-import { Input, Typography } from '@material-tailwind/react';
+import { Button, Input, Popover, PopoverHandler, Select, Typography } from '@material-tailwind/react';
 import React from 'react';
+import { useForm } from 'react-hook-form';
+import useAxiosPublic from '../../../hooks/useAxiosPublic';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
+import Swal from 'sweetalert2';
 
+const image_hosting_key = import.meta.env.VITE_Image_hosting_key;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 const AddClass = () => {
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure();
+    const onSubmit = async(data) => {
+        console.log(data);
+        //upload image in imagebb and get the url
+        const imageFile = { image: data.image[0]}
+        const res = await axiosPublic.post(image_hosting_api, imageFile, {
+            headers: {
+                'content-type' : 'multipart/form-data'
+            }
+        });
+        if(res.data.success){
+            const classInfo = {
+                name: data.className,
+                details: data.classDetails,
+                classImg: res.data.data.display_url
+            }
+            const classRes = await axiosSecure.post('/classInfo', classInfo);
+            console.log("class info has saved in db-->", classRes.data);
+            if(classRes.data.insertedId){
+                Swal.fire(`${data.className} class has added`);
+            }
+
+
+        }
+        console.log(res.data);
+
+    }
     return (
         <div>
             <div className='my-10 flex justify-center items-center'>
-                <h1 className='text-2xl font-bold'>Add Class</h1>
+                <h1 className='text-2xl font-bold'>Add Class Info</h1>
             </div>
             <div>
-                <section className="max-w-2xl  mx-auto">
+                <form onSubmit={handleSubmit(onSubmit)} className="max-w-2xl  mx-auto">
                     <div className="flex flex-col mt-8">
                         <div className="mb-6 flex flex-col items-end gap-4 md:flex-row">
+                            <div className="w-full">
+                                <Typography
+                                    variant="small"
+                                    color="blue-gray"
+                                    className="mb-2 font-medium"
+                                >
+                                    Class Name
+                                </Typography>
+                                <Input
+                                    {...register("className", { required: true })}
+                                    type="text"
+                                    size="lg"
+                                    placeholder="Class name"
+                                    className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                                    labelProps={{
+                                        className: "before:content-none after:content-none",
+                                    }}
+                                />
+                                {errors.className && <span className="text-sm text-red-500">photo url field is required</span>}
+                        
+                            </div>
+                        </div>
+                        <div className="mb-6 flex flex-col items-end gap-4 md:flex-row">
+                            <div className="w-full">
+                                <Typography
+                                    variant="small"
+                                    color="blue-gray"
+                                    className="mb-2 font-medium"
+                                >
+                                    Details
+                                </Typography>
+                                <Input
+                                    {...register("classDetails", { required: true })}
+                                    type="text"
+                                    size="lg"
+                                    placeholder="Class description"
+                                    className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+                                    labelProps={{
+                                        className: "before:content-none after:content-none",
+                                    }}
+                                />
+                                {errors.classDetails && <span className="text-sm text-red-500">photo url field is required</span>}
+                        
+                            </div>
+                        </div>
+                        <div className="mb-6 flex flex-col items-end gap-4 md:flex-row">
+                            <div className="w-full">
+                                <Typography
+                                    variant="small"
+                                    color="blue-gray"
+                                    className="mb-2 font-medium"
+                                >
+                                    Image Url
+                                </Typography>
+                                <Input
+                                    {...register("image", { required: true })}  
+                                    type="file"
+                                    className="file-input w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200 file:mr-5 file:py-1 file:px-6
+                                            file:rounded-full file:border-0
+                                            file:text-sm file:font-medium
+                                            file:bg-[#f3ffb7] file:text-black
+                                            hover:file:cursor-pointer hover:file:bg-amber-50
+                                            hover:file:text-amber-700"
+                                    labelProps={{
+                                        className: "before:content-none after:content-none",
+                                    }}
+                                    size="lg"
+                                    placeholder="Choose image for class cover photo"
+
+                                />
+                                {errors.image && <span className="text-sm text-red-500">photo url field is required</span>}
+                            </div>
+                        </div>
+                        {/* <div className="mb-6 flex flex-col items-end gap-4 md:flex-row">
                             <div className="w-full">
                                 <Typography
                                     variant="small"
@@ -29,7 +138,7 @@ const AddClass = () => {
                                 />
                             </div>
                         </div>
-                        {/* <div className="mb-6 flex flex-col gap-4 md:flex-row">
+                        <div className="mb-6 flex flex-col gap-4 md:flex-row">
                             <div className="w-full">
                                 <Typography
                                     variant="small"
@@ -49,254 +158,21 @@ const AddClass = () => {
                                     <Option>Female</Option>
                                 </Select>
                             </div>
-                            <div className="w-full">
-                                <Typography
-                                    variant="small"
-                                    color="blue-gray"
-                                    className="mb-2 font-medium"
-                                >
-                                    Birth Date
-                                </Typography>
-                                <Popover placement="bottom">
-                                    <PopoverHandler>
-                                        <Input
-                                            size="lg"
-                                            onChange={() => null}
-                                            placeholder="Select a Date"
-                                            value={date ? format(date, "PPP") : ""}
-                                            labelProps={{
-                                                className: "hidden",
-                                            }}
-                                            className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
-                                        />
-                                    </PopoverHandler>
-                                    <PopoverContent>
-                                        <DayPicker
-                                            mode="single"
-                                            selected={date}
-                                            onSelect={setDate}
-                                            showOutsideDays
-                                            className="border-0"
-                                            classNames={{
-                                                caption:
-                                                    "flex justify-center py-2 mb-4 relative items-center",
-                                                caption_label: "text-sm !font-medium text-gray-900",
-                                                nav: "flex items-center",
-                                                nav_button:
-                                                    "h-6 w-6 bg-transparent hover:bg-blue-gray-50 p-1 rounded-md transition-colors duration-300",
-                                                nav_button_previous: "absolute left-1.5",
-                                                nav_button_next: "absolute right-1.5",
-                                                table: "w-full border-collapse",
-                                                head_row: "flex !font-medium text-gray-900",
-                                                head_cell: "m-0.5 w-9 !font-normal text-sm",
-                                                row: "flex w-full mt-2",
-                                                cell: "text-gray-600 rounded-md h-9 w-9 text-center text-sm p-0 m-0.5 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-gray-900/20 [&:has([aria-selected].day-outside)]:text-white [&:has([aria-selected])]:bg-gray-900/50 first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20",
-                                                day: "h-9 w-9 p-0 !font-normal",
-                                                day_range_end: "day-range-end",
-                                                day_selected:
-                                                    "rounded-md bg-gray-900 text-white hover:bg-gray-900 hover:text-white focus:bg-gray-900 focus:text-white",
-                                                day_today: "rounded-md bg-gray-200 text-gray-900",
-                                                day_outside:
-                                                    "day-outside text-gray-500 opacity-50 aria-selected:bg-gray-500 aria-selected:text-gray-900 aria-selected:bg-opacity-10",
-                                                day_disabled: "text-gray-500 opacity-50",
-                                                day_hidden: "invisible",
-                                            }}
-                                            components={{
-                                                IconLeft: ({ ...props }) => (
-                                                    <ChevronLeftIcon
-                                                        {...props}
-                                                        className="h-4 w-4 stroke-2"
-                                                    />
-                                                ),
-                                                IconRight: ({ ...props }) => (
-                                                    <ChevronRightIcon
-                                                        {...props}
-                                                        className="h-4 w-4 stroke-2"
-                                                    />
-                                                ),
-                                            }}
-                                        />
-                                    </PopoverContent>
-                                </Popover>
-                            </div>
-                            <div className="w-full">
-                                <Typography
-                                    variant="small"
-                                    color="blue-gray"
-                                    className="mb-2 font-medium"
-                                >
-                                    Day
-                                </Typography>
-                                <Select
-                                    size="lg"
-                                    labelProps={{
-                                        className: "hidden",
-                                    }}
-                                    className="border-t-blue-gray-200 aria-[expanded=true]:border-t-primary"
-                                >
-                                    <Option>1</Option>
-                                    <Option>2</Option>
-                                    <Option>3</Option>
-                                    <Option>4</Option>
-                                    <Option>5</Option>
-                                    <Option>6</Option>
-                                    <Option>7</Option>
-                                    <Option>8</Option>
-                                    <Option>9</Option>
-                                    <Option>10</Option>
-                                    <Option>11</Option>
-                                    <Option>12</Option>
-                                    <Option>13</Option>
-                                    <Option>14</Option>
-                                    <Option>15</Option>
-                                    <Option>16</Option>
-                                    <Option>17</Option>
-                                    <Option>18</Option>
-                                    <Option>19</Option>
-                                    <Option>20</Option>
-                                    <Option>21</Option>
-                                    <Option>22</Option>
-                                    <Option>23</Option>
-                                    <Option>24</Option>
-                                    <Option>25</Option>
-                                    <Option>26</Option>
-                                    <Option>27</Option>
-                                    <Option>28</Option>
-                                    <Option>29</Option>
-                                    <Option>30</Option>
-                                </Select>
-                            </div>
-                            <div className="w-full">
-                                <Typography
-                                    variant="small"
-                                    color="blue-gray"
-                                    className="mb-2 font-medium"
-                                >
-                                    Year
-                                </Typography>
-                                <Select
-                                    size="lg"
-                                    labelProps={{
-                                        className: "hidden",
-                                    }}
-                                    className="border-t-blue-gray-200 aria-[expanded=true]:border-t-primary"
-                                >
-                                    <Option>2022</Option>
-                                    <Option>2021</Option>
-                                    <Option>2020</Option>
-                                </Select>
-                            </div>
-                        </div>
-                        <div className="mb-6 flex flex-col items-end gap-4 md:flex-row">
-                            <div className="w-full">
-                                <Typography
-                                    variant="small"
-                                    color="blue-gray"
-                                    className="mb-2 font-medium"
-                                >
-                                    Email
-                                </Typography>
-                                <Input
-                                    size="lg"
-                                    placeholder="emma@mail.com"
-                                    labelProps={{
-                                        className: "hidden",
-                                    }}
-                                    className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
-                                />
-                            </div>
-                            <div className="w-full">
-                                <Typography
-                                    variant="small"
-                                    color="blue-gray"
-                                    className="mb-2 font-medium"
-                                >
-                                    Confirm Email
-                                </Typography>
-                                <Input
-                                    size="lg"
-                                    placeholder="emma@mail.com"
-                                    labelProps={{
-                                        className: "hidden",
-                                    }}
-                                    className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
-                                />
-                            </div>
-                        </div>
-                        <div className="mb-6 flex flex-col items-end gap-4 md:flex-row">
-                            <div className="w-full">
-                                <Typography
-                                    variant="small"
-                                    color="blue-gray"
-                                    className="mb-2 font-medium"
-                                >
-                                    Location
-                                </Typography>
-                                <Input
-                                    size="lg"
-                                    placeholder="Florida, USA"
-                                    labelProps={{
-                                        className: "hidden",
-                                    }}
-                                    className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
-                                />
-                            </div>
-                            <div className="w-full">
-                                <Typography
-                                    variant="small"
-                                    color="blue-gray"
-                                    className="mb-2 font-medium"
-                                >
-                                    Phone Number
-                                </Typography>
-                                <Input
-                                    size="lg"
-                                    placeholder="+123 0123 456 789"
-                                    labelProps={{
-                                        className: "hidden",
-                                    }}
-                                    className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
-                                />
-                            </div>
-                        </div>
+                        </div> */}
                         <div className="flex flex-col items-end gap-4 md:flex-row">
                             <div className="w-full">
-                                <Typography
-                                    variant="small"
-                                    color="blue-gray"
-                                    className="mb-2 font-medium"
-                                >
-                                    Language
-                                </Typography>
-                                <Input
-                                    size="lg"
-                                    placeholder="Language"
+                                <Input 
+                                    type='submit'
+                                    className="!text-[#e2ff31] !bg-black !border-t-blue-gray-200 focus:!border-t-gray-900" 
                                     labelProps={{
-                                        className: "hidden",
+                                        className: "before:content-none after:content-none",
                                     }}
-                                    className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
+                                    value="Add Class"
                                 />
                             </div>
-                            <div className="w-full">
-                                <Typography
-                                    variant="small"
-                                    color="blue-gray"
-                                    className="mb-2 font-medium"
-                                >
-                                    Skills
-                                </Typography>
-                                <Input
-                                    size="lg"
-                                    placeholder="Skills"
-                                    labelProps={{
-                                        className: "hidden",
-                                    }}
-                                    className="w-full placeholder:opacity-100 focus:border-t-primary border-t-blue-gray-200"
-                                />
-                            </div>
-                        </div> */}
+                        </div>
                     </div>
-                </section>
+                </form>
             </div>
         </div>
     );

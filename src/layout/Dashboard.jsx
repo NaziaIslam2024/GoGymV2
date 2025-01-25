@@ -10,10 +10,13 @@ import {
 
 } from "@material-tailwind/react";
 import useAuth from '../hooks/useAuth';
+import useRole from '../hooks/useRole';
 
 const Dashboard = () => {
     const navigate = useNavigate();
     const isAdmin = "admin";
+    const [isRole] = useRole();
+    console.log(isRole);
     const { logout } = useAuth();
 
     const handleLogout = () => {
@@ -30,7 +33,7 @@ const Dashboard = () => {
                 </div>
                 <ul className="menu bg-[#e2ff31] bg-opacity-40 h-[500px] pt-10">
                     <List>
-                        {isAdmin === 'admin' &&
+                        {isRole === 'admin' &&
                             <>
                                 <Link to='financial'>
                                     <ListItem>
@@ -76,7 +79,7 @@ const Dashboard = () => {
                             </>
                         }
                         {
-                            isAdmin === 'trainer' &&
+                            isRole === 'trainer' &&
                             <>
                                 <Link to='financial'>
                                     <ListItem>
@@ -104,14 +107,14 @@ const Dashboard = () => {
                                 </Link>
                             </>
                         }
-                        {isAdmin === 'member' &&
+                        {isRole === 'member' &&
                             <>
                                 <Link to='financial'>
                                     <ListItem>
                                         <ListItemPrefix>
                                             {/* <InboxIcon className="h-5 w-5" /> */}
                                         </ListItemPrefix>
-                                        Manage Slot
+                                        Activity Log
                                     </ListItem>
                                 </Link>
                                 <Link to='add-class'>
@@ -119,7 +122,7 @@ const Dashboard = () => {
                                         <ListItemPrefix>
                                             {/* <InboxIcon className="h-5 w-5" /> */}
                                         </ListItemPrefix>
-                                        Add New Slot
+                                        Profile
                                     </ListItem>
                                 </Link>
                                 <Link to='all-trainer'>
@@ -127,7 +130,7 @@ const Dashboard = () => {
                                         <ListItemPrefix>
                                             {/* <InboxIcon className="h-5 w-5" /> */}
                                         </ListItemPrefix>
-                                        Add New Forum
+                                        Booked Trainer
                                     </ListItem>
                                 </Link>
                             </>

@@ -16,6 +16,12 @@ import AppliedTrainer from "../pages/Dashboard/AppliedTrainer/AppliedTrainer";
 import AllTrainers from "../pages/Dashboard/AllTrainers/AllTrainers";
 import ForumPosts from "../components/ForumPosts/ForumPosts";
 import AllTrainerss from "../pages/AllTrainers/AllTrainers";
+import ClassesHome from "../pages/ClassesHome/ClassesHome";
+import BecomeTrainer from "../pages/BacomeTrainer/BecomeTrainer";
+import TrainerApplicationDetails from "../pages/Dashboard/TrainerApplicationDetails/TrainerApplicationDetails";
+import { axiosSecure } from "../hooks/useAxiosSecure";
+import ManageSlots from "../pages/Dashboard/TrainerDashboard/ManageSlots/ManageSlots";
+import AddNewSlot from "../pages/Dashboard/TrainerDashboard/AddNewSlot/AddNewSlot";
 
 export const router = createBrowserRouter([
     {
@@ -29,6 +35,14 @@ export const router = createBrowserRouter([
             {
                 path: 'trainers',
                 element: <AllTrainerss></AllTrainerss>
+            },
+            {
+                path: 'training-classes',
+                element: <ClassesHome></ClassesHome>
+            },
+            {
+                path:'/be-a-trainer',
+                element: <PrivateRoutes><BecomeTrainer></BecomeTrainer></PrivateRoutes>
             },
             {
                 path: 'trainers/:id',
@@ -78,6 +92,20 @@ export const router = createBrowserRouter([
             {
                 path: 'all-trainer',
                 element: <AllTrainers></AllTrainers>
+            },
+            {
+                path: '/dashboard/applied-trainer-details/:id',
+                element: <TrainerApplicationDetails></TrainerApplicationDetails>,
+                loader: ({ params }) => axiosSecure.get(`/trainers/${params.id}`)
+            },
+            //trainer dashboard
+            {
+                path: 'manage-slots',
+                element: <ManageSlots></ManageSlots>
+            },
+            {
+                path: 'add-new-slot',
+                element: <PrivateRoutes><AddNewSlot></AddNewSlot></PrivateRoutes>
             },
         ]
     }

@@ -9,12 +9,14 @@ import {
     Button,
 } from "@material-tailwind/react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFacebook, faTwitter, faInstagram, faLinkedinIn} from '@fortawesome/free-brands-svg-icons';
+import { faFacebook, faTwitter, faInstagram, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
 import { Link } from "react-router-dom";
+import { FaCalendarDays } from "react-icons/fa6";
+import { LuAlarmClock } from "react-icons/lu";
 
 const TrainerCard = ({ trainer }) => {
-    console.log(trainer._id)
-    const { name, category, url, bio, yearsOfExperience, socialIcons, _id, availableSlots } = trainer;
+    console.log(trainer._id);
+    const { name, skills, url, bio, experiences, socialIcons, _id, availableDay, availableTime} = trainer;
     const truncateBio = bio.split(" ").slice(0, 20).join(" ") + "...";
     return (
         <Card className="w-96">
@@ -24,26 +26,40 @@ const TrainerCard = ({ trainer }) => {
             <CardBody className="text-left">
                 <Typography variant="h4" color="blue-gray" className="mb-2 flex justify-between items-center">
                     <span>{name}</span>
-                    <Chip value={category} />
+                </Typography>
+                <Typography variant="h4" color="blue-gray" className="mb-2 flex flex-col space-y-2">
+                   
+                    {
+                        skills.map(item => <Chip variant="outlined"  value={item} /> )
+                    }
                 </Typography>
                 <Typography color="blue-gray" className="font-medium" textGradient>
                     {truncateBio}
                 </Typography>
                 <Typography color="blue-gray" className="font-medium" textGradient>
-                    {yearsOfExperience} years of experiences
+                    {experiences} years of experiences
                 </Typography>
-                <Typography color="blue-gray" className="font-medium" textGradient>
-                {/* <FontAwesomeIcon icon={} className="text-black text-2xl" />  */}
-                Class Time: {
-                        availableSlots.map(time=><li>
-                            {/* <FontAwesomeIcon icon={faAngellist} className="text-black text-2xl" /> */}
-                            {time}
-                        </li>)
-                    }
-                </Typography>
+                <div className="flex gap-6 mt-3 items-center">
+                    <Typography className="text-black" textGradient>
+                        {
+                            availableDay.map(time => <li className="flex">
+                                <FaCalendarDays className="text-lg mr-2 text-blue-gray-200" />
+                                {time.value}
+                            </li>)
+                        }
+                    </Typography>
+                    <Typography className="text-black" textGradient>
+                        {
+                            availableTime.map(time => <li className="flex">
+                                <LuAlarmClock className="text-lg mr-2 text-blue-gray-200" />
+                                {time.value}
+                            </li>)
+                        }
+                    </Typography>
+                </div>
             </CardBody>
             <CardFooter className="flex justify-center gap-7 pt-2">
-                <Tooltip content="Like">
+                {/* <Tooltip content="Like">
                     <Typography
                         as="a"
                         href={socialIcons.facebook}
@@ -92,7 +108,7 @@ const TrainerCard = ({ trainer }) => {
                             <FontAwesomeIcon icon={faLinkedinIn} className="text-black text-2xl" />
                         </Typography>
                     </Tooltip>
-                }
+                } */}
                 <Link to={`/trainers/${_id}`} className="inline-block">
                     <Button size="sm" variant="text" className="flex items-center gap-2">
                         Learn More

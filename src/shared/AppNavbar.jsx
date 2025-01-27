@@ -5,6 +5,7 @@ import {
     Button,
     IconButton,
     Collapse,
+    Avatar,
 } from "@material-tailwind/react";
 import { Link, NavLink } from 'react-router-dom';
 import logo from '../assets/logoB.png'
@@ -54,7 +55,7 @@ const AppNavbar = () => {
                 color="blue-gray"
                 className="p-1 font-normal"
             >
-                <NavLink to='/classes' className="flex items-center focus:bg-[#e2ff31] focus:p-2 focus:underline-offset-8 focus:text-black">
+                <NavLink to='/training-classes' className="flex items-center focus:bg-[#e2ff31] focus:p-2 focus:underline-offset-8 focus:text-black">
                     CLASSES
                 </NavLink>
             </Typography>
@@ -89,6 +90,14 @@ const AppNavbar = () => {
                         <a href="#" className="flex items-center focus:bg-[#e2ff31] focus:p-2 focus:underline-offset-8 focus:text-black">
                             USER PROFILE
                         </a>
+                    </Typography>
+                    <Typography
+                        as="li"
+                        variant="small"
+                        color="blue-gray"
+                        className="p-1 font-normal"
+                    >
+                        <Avatar src={user.photoURL} alt="avatar"></Avatar>
                     </Typography>
                     <div className="flex items-center gap-x-1">
                         <Link

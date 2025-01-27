@@ -16,7 +16,7 @@ const Dashboard = () => {
     const navigate = useNavigate();
     const isAdmin = "admin";
     const [isRole] = useRole();
-    console.log(isRole);
+    // console.log(isRole);
     const { logout } = useAuth();
 
     const handleLogout = () => {
@@ -81,7 +81,7 @@ const Dashboard = () => {
                         {
                             isRole === 'trainer' &&
                             <>
-                                <Link to='financial'>
+                                <Link to='manage-slots'>
                                     <ListItem>
                                         <ListItemPrefix>
                                             {/* <InboxIcon className="h-5 w-5" /> */}
@@ -89,7 +89,7 @@ const Dashboard = () => {
                                         Manage Slot
                                     </ListItem>
                                 </Link>
-                                <Link to='add-class'>
+                                <Link to='add-new-slot'>
                                     <ListItem>
                                         <ListItemPrefix>
                                             {/* <InboxIcon className="h-5 w-5" /> */}
@@ -147,12 +147,28 @@ const Dashboard = () => {
                                 Home
                             </ListItem>
                         </Link>
+                        <Link to='/trainers'>
+                            <ListItem>
+                                <ListItemPrefix>
+                                    {/* <PowerIcon className="h-5 w-5" /> */}
+                                </ListItemPrefix>
+                                Trainers
+                            </ListItem>
+                        </Link>
+                        <Link to='/training-classes'>
+                            <ListItem>
+                                <ListItemPrefix>
+                                    {/* <PowerIcon className="h-5 w-5" /> */}
+                                </ListItemPrefix>
+                                Classes
+                            </ListItem>
+                        </Link>
                         <Link to='/community'>
                             <ListItem>
                                 <ListItemPrefix>
                                     {/* <PowerIcon className="h-5 w-5" /> */}
                                 </ListItemPrefix>
-                                Forum
+                                Community
                             </ListItem>
                         </Link>
                         <Link onClick={handleLogout}>

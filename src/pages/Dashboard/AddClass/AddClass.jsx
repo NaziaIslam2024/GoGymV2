@@ -24,11 +24,13 @@ const AddClass = () => {
             const classInfo = {
                 name: data.className,
                 details: data.classDetails,
+                bookingCount: 0,
                 classImg: res.data.data.display_url
             }
             const classRes = await axiosSecure.post('/classInfo', classInfo);
             console.log("class info has saved in db-->", classRes.data);
             if(classRes.data.insertedId){
+                reset();
                 Swal.fire(`${data.className} class has added`);
             }
 

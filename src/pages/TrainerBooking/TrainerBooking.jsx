@@ -30,24 +30,35 @@ function CheckIcon() {
 const TrainerBooking = () => {
     const {user} = useAuth();
     const navigate = useNavigate();
-    const [packageName, setPackageName] = useState("");
+    const [packageName, setPackageName] = useState({});
     const { data } = useLoaderData();
     const axiosPublic = useAxiosPublic();
     console.log(data);
     const handlePackage= (name) => {
-        console.log(name)
-        setPackageName(name)
+        // console.log(name)
+        if(name === 'Basic'){
+            setPackageName({membershipName: name, price: 10})
+        }
+        else if(name === 'Standard'){
+            setPackageName({membershipName: name, price: 50})
+        }
+        else if(name === 'Premium'){
+            setPackageName({membershipName: name, price: 100})
+        }
+        
+        
     }
-    console.log(packageName)
+    // console.log(packageName)
     // slot id, trainer id, user id, mem type, mem amount, payment status
     const handleJoin = async() => {
         const joinMemberInfo = {slotId: data._id, trainerId: data.trainerId, memberEmail: user.email, membership:packageName, payment: "initialize"}
+        console.log(joinMemberInfo)
         const res = await axiosPublic.post(`/booking`, joinMemberInfo);
         console.log(res.data);
         if(res.data.insertedId){
             Swal.fire({
-                title: "Are you sure?",
-                text: "Booking complete. Go to payment.",
+                title: "Want to pay?",
+                text: "Booking complete.",
                 icon: "success",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
@@ -56,7 +67,7 @@ const TrainerBooking = () => {
             })
             .then((result) => {
                 if (result.isConfirmed) {
-                    navigate('/payment');
+                    navigate(`/payment/${res.data.insertedId}`);
                 }
             });
         }
@@ -84,178 +95,6 @@ const TrainerBooking = () => {
                 </Card>
             </div>
             <div className='my-10 grid grid-cols-1 lg:grid-cols-3 gap-4 max-w-5xl mx-auto'>
-                {/* 
-                <Card color="gray" variant="gradient" className="w-full max-w-[20rem] p-8">
-                    <CardHeader
-                        floated={false}
-                        shadow={false}
-                        color="transparent"
-                        className="m-0 mb-8 rounded-none border-b border-white/10 pb-8 text-center"
-                    >
-                        <Typography
-                            variant="small"
-                            color="white"
-                            className="font-normal uppercase"
-                        >
-                            Basic Membership
-                        </Typography>
-                        <Typography
-                            variant="h1"
-                            color="white"
-                            className="mt-6 flex justify-center gap-1 text-7xl font-normal"
-                        >
-                            <span className="mt-2 text-4xl">$</span>10{" "}
-                            <span className="self-end text-4xl">/mo</span>
-                        </Typography>
-                    </CardHeader>
-                    <CardBody className="p-0">
-                        <ul className="flex flex-col gap-4">
-                            <li className="flex items-start gap-4">
-                                <span className="rounded-full border border-white/20 bg-white/20 p-1">
-                                    <CheckIcon />
-                                </span>
-                                <Typography className="font-normal">Access to gym facilities during regular operating hours.</Typography>
-                            </li>
-                            <li className="flex items-start gap-4">
-                                <span className="rounded-full border border-white/20 bg-white/20 p-1">
-                                    <CheckIcon />
-                                </span>
-                                <Typography className="font-normal">Use of cardio and strength training equipment.</Typography>
-                            </li>
-                            <li className="flex items-start gap-4">
-                                <span className="rounded-full border border-white/20 bg-white/20 p-1">
-                                    <CheckIcon />
-                                </span>
-                                <Typography className="font-normal">Access to locker rooms and showers.</Typography>
-                            </li>
-                        </ul>
-                    </CardBody>
-                    <CardFooter className="mt-12 p-0">
-                        <Button
-                            size="lg"
-                            color="white"
-                            className="hover:scale-[1.02] focus:scale-[1.02] active:scale-100"
-                            ripple={false}
-                            fullWidth={true}
-                        >
-                            Buy Now
-                        </Button>
-                    </CardFooter>
-                </Card>
-                <Card color="gray" variant="gradient" className="w-full max-w-[20rem] p-8">
-                    <CardHeader
-                        floated={false}
-                        shadow={false}
-                        color="transparent"
-                        className="m-0 mb-8 rounded-none border-b border-white/10 pb-8 text-center"
-                    >
-                        <Typography
-                            variant="small"
-                            color="white"
-                            className="font-normal uppercase"
-                        >
-                            Standard  Membership
-                        </Typography>
-                        <Typography
-                            variant="h1"
-                            color="white"
-                            className="mt-6 flex justify-center gap-1 text-7xl font-normal"
-                        >
-                            <span className="mt-2 text-4xl">$</span>50{" "}
-                            <span className="self-end text-4xl">/mo</span>
-                        </Typography>
-                    </CardHeader>
-                    <CardBody className="p-0">
-                        <ul className="flex flex-col gap-4">
-                            <li className="flex items-start gap-4">
-                                <span className="rounded-full border border-white/20 bg-white/20 p-1">
-                                    <CheckIcon />
-                                </span>
-                                <Typography className="font-normal">All benefits of the basic membership.</Typography>
-                            </li>
-                            <li className="flex items-start gap-4">
-                                <span className="rounded-full border border-white/20 bg-white/20 p-1">
-                                    <CheckIcon />
-                                </span>
-                                <Typography className="font-normal">Access to group fitness classes such as yoga, spinning, and Zumba.</Typography>
-                            </li>
-                            <li className="flex items-start gap-4">
-                                <span className="rounded-full border border-white/20 bg-white/20 p-1">
-                                    <CheckIcon />
-                                </span>
-                                <Typography className="font-normal">Use of additional amenities like a sauna or steam room.</Typography>
-                            </li>
-                        </ul>
-                    </CardBody>
-                    <CardFooter className="mt-12 p-0">
-                        <Button
-                            size="lg"
-                            color="white"
-                            className="hover:scale-[1.02] focus:scale-[1.02] active:scale-100"
-                            ripple={false}
-                            fullWidth={true}
-                        >
-                            Buy Now
-                        </Button>
-                    </CardFooter>
-                </Card>
-                <Card color="gray" variant="gradient" className="w-full max-w-[20rem] p-8">
-                    <CardHeader
-                        floated={false}
-                        shadow={false}
-                        color="transparent"
-                        className="m-0 mb-8 rounded-none border-b border-white/10 pb-8 text-center"
-                    >
-                        <Typography
-                            variant="small"
-                            color="white"
-                            className="font-normal uppercase"
-                        >
-                            Premium Membership
-                        </Typography>
-                        <Typography
-                            variant="h1"
-                            color="white"
-                            className="mt-6 flex justify-center gap-1 text-7xl font-normal"
-                        >
-                            <span className="mt-2 text-4xl">$</span>100{" "}
-                            <span className="self-end text-4xl">/mo</span>
-                        </Typography>
-                    </CardHeader>
-                    <CardBody className="p-0">
-                        <ul className="flex flex-col gap-4">
-                            <li className="flex items-start gap-4">
-                                <span className="rounded-full border border-white/20 bg-white/20 p-1">
-                                    <CheckIcon />
-                                </span>
-                                <Typography className="font-normal">All benefits of the standard membership.</Typography>
-                            </li>
-                            <li className="flex items-start gap-4">
-                                <span className="rounded-full border border-white/20 bg-white/20 p-1">
-                                    <CheckIcon />
-                                </span>
-                                <Typography className="font-normal">Access to personal training sessions with certified trainers.</Typography>
-                            </li>
-                            <li className="flex items-start gap-4">
-                                <span className="rounded-full border border-white/20 bg-white/20 p-1">
-                                    <CheckIcon />
-                                </span>
-                                <Typography className="font-normal">Discounts on additional services such as massage therapy or nutrition counseling.</Typography>
-                            </li>
-                        </ul>
-                    </CardBody>
-                    <CardFooter className="mt-12 p-0">
-                        <Button
-                            size="lg"
-                            color="white"
-                            className="hover:scale-[1.02] focus:scale-[1.02] active:scale-100"
-                            ripple={false}
-                            fullWidth={true}
-                        >
-                            Buy Now
-                        </Button>
-                    </CardFooter>
-                </Card> */}
                 {/* basic */}
                 <Button
                     onClick={() => handlePackage("Basic")}
@@ -378,7 +217,7 @@ const TrainerBooking = () => {
                 </Button>
                 {/* premium */}
                 <Button
-                    onClick={() => handlePackage("Premiun")}
+                    onClick={() => handlePackage("Premium")}
                     color="white"
                     className="hover:scale-[1.02] focus:scale-[1.02] active:scale-100 focus:bg-[#f1ffa4]"
                     ripple={false}

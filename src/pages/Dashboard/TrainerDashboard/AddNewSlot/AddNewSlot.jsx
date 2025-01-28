@@ -33,14 +33,14 @@ const AddNewSlot = () => {
             return res.data;
         }
     })
-    console.log(trainerInfo)
+    // console.log(trainerInfo)
 
     const checkboxOption = trainerInfo.skills;
     const optionsDay = trainerInfo.availableDay;
     
     const optionsTime = trainerInfo.availableTime;
     const [...classNameArray] = trainerInfo.skills.map(item => item)
-    console.log(classNameArray);
+    // console.log(classNameArray);
     const classOptions = classNameArray.map(skill => ({ value: skill, label: skill })) || [];
     const {control, register, reset, handleSubmit, watch, formState: { errors } } = useForm();
     // const additionalInfo = {
@@ -54,8 +54,8 @@ const AddNewSlot = () => {
         const selectedTime = watch("selectTime");
         const selectedClass = watch("selectTraningClass");
         
-        console.log("data------>")
-        console.log(data)
+        // console.log("data------>")
+        // console.log(data)
         const trainerId = trainerInfo._id;
         const trainerName = trainerInfo.name;
         const trainerEmail = trainerInfo.email;
@@ -69,12 +69,12 @@ const AddNewSlot = () => {
         const selectTraningClass = data.selectTraningClass;
         // const final = { ...data, age, bio, experiences, classDurationHour, trainerId,trainerName,email,selectDay, photoUrl, selectTime, selectTraningClass };
         const newSlot = { trainerName, trainerId, trainerEmail, trainerClass: selectTraningClass.value, day: selectDay.value, slot: selectTime.value};
-        console.log("New Slot---->")
-        console.log(newSlot);
+        // console.log("New Slot---->")
+        // console.log(newSlot);
 
         // axiosSecure.post(`/add-new-slot`, newSlot)
         const classRes = await axiosSecure.post(`/add-new-slot`, newSlot);
-        console.log("class info has saved in db-->", classRes.data);
+        // console.log("class info has saved in db-->", classRes.data);
             if(classRes.data.insertedId){
                 reset();
                 Swal.fire(`New Slot added`);

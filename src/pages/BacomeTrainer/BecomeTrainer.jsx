@@ -31,7 +31,7 @@ const BecomeTrainer = () => {
         const selectedValues = watch("skills");
         const role = "pending";
         const trainerInfo = { ...data, role };
-        console.log(trainerInfo);
+        // console.log(trainerInfo);
 
         axiosSecure.put(`/be-a-trainer/${user.email}`, trainerInfo)
             .then(res => {

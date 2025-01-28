@@ -15,7 +15,7 @@ const SocialLogin = ({title}) => {
     const handleGoogleSignUp = () => {
         googleSignIn()
         .then(result =>{
-            console.log(result.user);
+            // console.log(result.user);
             const userInfo = {
                 email: result.user?.email,
                 name: result.user?.displayName,
@@ -24,7 +24,7 @@ const SocialLogin = ({title}) => {
             }
             axiosPublic.post('/users', userInfo)
             .then(res =>{
-                console.log(res.data);
+                // console.log(res.data);
                 // Swal.fire('Login successful')
                 navigate(from, { replace: true });
             })

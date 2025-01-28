@@ -4,7 +4,7 @@ import TrainerCard from '../../components/TrainerCard/TrainerCard';
 
 const AllTrainerss = () => {
     const [trainers, loading] = useTrainers();
-    console.log(trainers)
+    // console.log(trainers)
     return (
         <div>
             <div className='bg-[#e2ff31] bg-opacity-50 h-40 lg:h-48 flex justify-center items-center'>

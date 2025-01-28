@@ -10,11 +10,11 @@ const Newsletter = () => {
     const navigate = useNavigate();
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const onSubmit = data => {
-        console.log(data);
+        // console.log(data);
         axiosPublic.post('/newsletter', data)
         .then(res => {
             if (res.data.insertedId) {
-                console.log("Subscription has completed")
+                // console.log("Subscription has completed")
                 reset();
                 Swal.fire({
                     position: 'top-end',

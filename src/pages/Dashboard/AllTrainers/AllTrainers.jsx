@@ -21,7 +21,7 @@ const AllTrainers = () => {
             //todo: sohan k ask korte hobe trainer delete korar por role : 'member' hobe but baki field gula kivabe delete korte hobe?
         }
     })
-    console.log("info-->", trainers);
+    // console.log("info-->", trainers);
 
     const handleDelete = (id) => {
         Swal.fire({

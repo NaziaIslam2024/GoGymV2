@@ -6,25 +6,29 @@ import { axiosPublic } from "../../hooks/useAxiosPublic";
 import Swal from "sweetalert2";
 import { Button, Card } from "@material-tailwind/react";
 
-const CheckoutForm = () => {
+const CheckoutForm = ({paymentDetails}) => {
+    console.log(paymentDetails.data)
     const [error, setError] = useState('');
     const [clientSecret, setClientSecret] = useState('');
     const [transactionId, setTransactionId] = useState('');
+    const [slotDetails, setSlotDetails] = useState('');
     const stripe = useStripe();
     const elements = useElements();
     const axiosSecure = useAxiosSecure();
-    const totalPrice = 50;
+    const totalPrice = paymentDetails.data.membership.price;
     const { user } = useAuth();
 
     useEffect(() => {
         console.log(totalPrice)
         axiosSecure.post('/create-payment-intent', { price: totalPrice })
             .then(res => {
-                console.log(res.data.clientSecret);
+                // console.log(res.data.clientSecret);
                 setClientSecret(res.data.clientSecret);
             })
+        // const res = axiosSecure.get(`/get-class-name/:${paymentDetails.data.slotId}`)
+        // setSlotDetails(res.data);
     }, [axiosSecure, totalPrice])
-
+    // [axiosSecure, totalPrice]
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -45,11 +49,11 @@ const CheckoutForm = () => {
         })
 
         if (error) {
-            console.log('payment error', error);
+            // console.log('payment error', error);
             setError(error.message);
         }
         else {
-            console.log('payment method', paymentMethod)
+            // console.log('payment method', paymentMethod)
             setError('');
         }
 
@@ -65,26 +69,43 @@ const CheckoutForm = () => {
         })
 
         if (confirmError) {
-            console.log('confirm error')
+            // console.log('confirm error')
         }
         else {
+            //slotId theke training class name pawa
+            const getClassNameRes = await axiosSecure.get(`/get-class-name/${paymentDetails.data.slotId}`)
+            console.log("claser name pawa---->", getClassNameRes.data.trainerClass);
+            setSlotDetails(getClassNameRes.data.trainerClass);
+
             console.log('payment intent', paymentIntent)
             if (paymentIntent.status === 'succeeded') {
-                console.log('transaction is: ', paymentIntent.id);
+                // console.log('transaction id: ', paymentIntent.id);
                 setTransactionId(paymentIntent.id);
+                console.log("slotid----> ",paymentDetails.data.slotId)
+
                 //save payment in db
                 const payment = {
-                    email: user.email,
+                    memberEmail: user.email,
                     price: totalPrice,
                     date: new Date(),
-                    status: "pending",
-                    transactionId: paymentIntent.id
+                    payment: "successed",
+                    transactionId: paymentIntent.id,
+                    slotId: paymentDetails.data.slotId,
+                    trainerId: paymentDetails.data.trainerId,
                 }
 
                 const res = await axiosSecure.post('/save-payment', payment)
-                console.log("payment saved ", res.data);
+                // console.log("payment saved ", res.data);
                 if (res.data.insertedId) {
-                    Swal.fire("Payment successful")
+                    console.log("clase nam---> ",getClassNameRes.data.trainerClass)
+
+                    await axiosSecure.put('/update-bookingCount', {bookingCount: 1, trainingName: getClassNameRes.data.trainerClass})
+                    .then(res => {
+                        if(res.data.modifiedCount > 0){
+                            Swal.fire("Payment successful")
+                        }
+                    })
+                    
                 }
             }
         }

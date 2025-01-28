@@ -71,8 +71,9 @@ export const router = createBrowserRouter([
                 loader: ({ params }) => axiosPublic.get(`/slot/${params.id}`)
             },
             {
-                path: 'payment',
-                element: <PrivateRoutes><Payment></Payment></PrivateRoutes>
+                path: 'payment/:id',
+                element: <PrivateRoutes><Payment></Payment></PrivateRoutes>,
+                loader: ({params}) => axiosSecure.get(`/make-payment/${params.id}`)
             }
         ],
         errorElement: <PageNotFound></PageNotFound>

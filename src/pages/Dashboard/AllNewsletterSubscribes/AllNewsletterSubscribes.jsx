@@ -14,7 +14,7 @@ const AllNewsletterSubscribes = () => {
             return res.data;
         }
     })
-    console.log(subscribers)
+    // console.log(subscribers)
     return (
         <div className="max-w-5xl mx-auto">
             <div className='my-10 flex justify-center items-center'>

@@ -14,7 +14,6 @@ import useRole from '../hooks/useRole';
 
 const Dashboard = () => {
     const navigate = useNavigate();
-    const isAdmin = "admin";
     const [isRole] = useRole();
     console.log(isRole);
     const { logout } = useAuth();

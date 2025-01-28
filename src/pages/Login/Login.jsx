@@ -20,7 +20,7 @@ const Login = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = data => {
-        console.log(data);
+        // console.log(data);
         signInUser(data.email, data.password)
         .then(result => {
             const user = result.user;
@@ -41,7 +41,7 @@ const Login = () => {
                 `
                 }
             });
-            console.log(from)
+            // console.log(from)
             navigate(from, { replace: true });
         })
         

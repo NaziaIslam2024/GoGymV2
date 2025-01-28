@@ -15,7 +15,7 @@ import { FaCalendarDays } from "react-icons/fa6";
 import { LuAlarmClock } from "react-icons/lu";
 
 const TrainerCard = ({ trainer }) => {
-    console.log(trainer._id);
+    // console.log(trainer);
     const { name, skills, url, bio, experiences, socialIcons, _id, availableDay, availableTime} = trainer;
     const truncateBio = bio.split(" ").slice(0, 20).join(" ") + "...";
     return (

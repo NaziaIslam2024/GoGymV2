@@ -12,6 +12,7 @@ import useAuth from '../../hooks/useAuth';
 const TrainerDetails = () => {
     const {user} = useAuth();
     const trainer = useLoaderData();
+    console.log(trainer.data)
     const { name, url, skills, bio, experiences, socialIcons, _id, availableDay, availableTime, slots } = trainer.data;
     const [slotInfo, setSlotInfo] = useState([]);
     const axiosPublic = useAxiosPublic();
@@ -19,14 +20,14 @@ const TrainerDetails = () => {
     const { data: trainerSlots = [] } = useQuery({
         queryKey: ['trainerSlots'],
         queryFn: async () => {
-            const res = await axiosPublic.get(`/all-slots/${user.email}`);
+            const res = await axiosPublic.get(`/all-slots/${_id}`);
             return res.data;  
         }
     })
     // if(isPending){
     //     return <h1>loading....</h1>
     // }
-    console.log(trainer.data);
+    // console.log(trainer.data);
     console.log("info-->", trainerSlots);
     return (
         <div>
@@ -37,7 +38,7 @@ const TrainerDetails = () => {
                 </div>
             </div>
             <div className='mt-36 text-gray-600 p-2 md:p-4 lg:max-w-5xl lg:mx-auto'>
-                <CardFooter className="flex justify-center gap-7 pt-2">
+                {/* <CardFooter className="flex justify-center gap-7 pt-2">
                     <Tooltip content="Like">
                         <Typography
                             as="a"
@@ -88,7 +89,7 @@ const TrainerDetails = () => {
                             </Typography>
                         </Tooltip>
                     }
-                </CardFooter>
+                </CardFooter> */}
                 <p>{bio}</p>
                 <div className='flex mt-8 mx-10 flex-col-reverse lg:flex-row lg:justify-evenly'>
                     <div>

@@ -21,7 +21,7 @@ const ManageSlots = () => {
     if(isPending){
         return <h1>loading....</h1>
     }
-    console.log("info-->", trainerSlots);
+    // console.log("info-->", trainerSlots);
 
     const handleDelete = (id) => {
         Swal.fire({

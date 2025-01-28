@@ -16,7 +16,9 @@ const AppNavbar = () => {
     const handleLogout = () => {
         logout()
             .then(() => { })
-            .catch(error => console.log(error.message))
+            .catch(error => {
+                // console.log(error.message)
+            })
     }
 
     const [openNav, setOpenNav] = useState(false);

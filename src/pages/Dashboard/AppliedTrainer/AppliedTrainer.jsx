@@ -7,7 +7,7 @@ const TABLE_HEAD = ["Personal", "Skills", "Available-Slots", "Details"];
 
 const AppliedTrainer = () => {
     const [pendingTrainers, isPending] = useUser();
-    console.log(pendingTrainers);
+    // console.log(pendingTrainers);
     if (isPending) {
         return <div className='flex items-center justify-center mt-32'><h1 className='text-3xl text-gray-600'>Loading...</h1></div>
     }

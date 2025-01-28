@@ -4,7 +4,7 @@ const TrainerSlot = ({ classItem, data}) => {
     const { _id, name, classImg, details, bookingCount } = classItem;
     const {slots, url} = data;
     const slotDetails = slots.filter(item => item.class.includes(name));
-    console.log(name)
+    // console.log(name)
     return (
         <Card className="max-w-[24rem] overflow-hidden">
             <CardHeader

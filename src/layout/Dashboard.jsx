@@ -16,7 +16,7 @@ const Dashboard = () => {
     const navigate = useNavigate();
     const isAdmin = "admin";
     const [isRole] = useRole();
-    // console.log(isRole);
+    console.log(isRole);
     const { logout } = useAuth();
 
     const handleLogout = () => {
@@ -109,7 +109,7 @@ const Dashboard = () => {
                         }
                         {isRole === 'member' &&
                             <>
-                                <Link to='financial'>
+                                <Link to='member-activity-log'>
                                     <ListItem>
                                         <ListItemPrefix>
                                             {/* <InboxIcon className="h-5 w-5" /> */}
@@ -117,7 +117,7 @@ const Dashboard = () => {
                                         Activity Log
                                     </ListItem>
                                 </Link>
-                                <Link to='add-class'>
+                                <Link to='member-profile'>
                                     <ListItem>
                                         <ListItemPrefix>
                                             {/* <InboxIcon className="h-5 w-5" /> */}
@@ -125,7 +125,7 @@ const Dashboard = () => {
                                         Profile
                                     </ListItem>
                                 </Link>
-                                <Link to='all-trainer'>
+                                <Link to='booked-trainer'>
                                     <ListItem>
                                         <ListItemPrefix>
                                             {/* <InboxIcon className="h-5 w-5" /> */}

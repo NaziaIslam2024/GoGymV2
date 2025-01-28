@@ -146,7 +146,6 @@ const AllTrainers = () => {
 
                     </div>
 
-
             }
         </>
     );

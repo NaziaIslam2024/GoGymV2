@@ -22,6 +22,10 @@ import TrainerApplicationDetails from "../pages/Dashboard/TrainerApplicationDeta
 import { axiosSecure } from "../hooks/useAxiosSecure";
 import ManageSlots from "../pages/Dashboard/TrainerDashboard/ManageSlots/ManageSlots";
 import AddNewSlot from "../pages/Dashboard/TrainerDashboard/AddNewSlot/AddNewSlot";
+import Payment from "../pages/Payment/Payment";
+import MemberActivityLog from "../pages/Dashboard/Member/MemberActivityLog/MemberActivityLog";
+import MemberProfile from "../pages/Dashboard/Member/MemberProfile/MemberProfile";
+import BookedTrainer from "../pages/Dashboard/Member/BookedTrainer/BookedTrainer";
 
 export const router = createBrowserRouter([
     {
@@ -64,7 +68,11 @@ export const router = createBrowserRouter([
             {
                 path: '/trainer-booking/:id',
                 element: <PrivateRoutes><TrainerBooking></TrainerBooking></PrivateRoutes>,
-                loader: ({ params }) => axiosPublic.get(`/trainers/${params.id}`)
+                loader: ({ params }) => axiosPublic.get(`/slot/${params.id}`)
+            },
+            {
+                path: 'payment',
+                element: <PrivateRoutes><Payment></Payment></PrivateRoutes>
             }
         ],
         errorElement: <PageNotFound></PageNotFound>
@@ -101,12 +109,25 @@ export const router = createBrowserRouter([
             //trainer dashboard
             {
                 path: 'manage-slots',
-                element: <ManageSlots></ManageSlots>
+                element: <PrivateRoutes><ManageSlots></ManageSlots></PrivateRoutes>
             },
             {
                 path: 'add-new-slot',
                 element: <PrivateRoutes><AddNewSlot></AddNewSlot></PrivateRoutes>
             },
+            //member dashboard
+            {
+                path: 'member-activity-log',
+                element: <PrivateRoutes><MemberActivityLog></MemberActivityLog></PrivateRoutes>,
+            },
+            {
+                path: 'member-profile',
+                element: <PrivateRoutes><MemberProfile></MemberProfile></PrivateRoutes>
+            },
+            {
+                path:'booked-trainer',
+                element: <PrivateRoutes><BookedTrainer></BookedTrainer></PrivateRoutes>
+            }
         ]
     }
 ]);

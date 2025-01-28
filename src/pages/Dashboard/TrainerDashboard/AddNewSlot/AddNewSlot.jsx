@@ -6,6 +6,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../../../hooks/useAxiosSecure';
 import useClassInfo from '../../../../hooks/useClassInfo';
+import Swal from 'sweetalert2';
 const optionsClassTime = [
     { value: '7am - 8am', label: '7am - 8am' },
     { value: '8am - 9am', label: '8am - 9am' },
@@ -21,9 +22,8 @@ const AddNewSlot = () => {
     // const [trainerInfo, setTrainerInfo] = useState([]);
     const { user } = useAuth();
     const [classDetails] = useClassInfo();
-    const [...classNameArray] = classDetails.map(item => item.name)
-  
-    const classOptions = classNameArray.map(skill => ({ value: skill, label: skill })) || [];
+    // const [...classNameArray] = trainerInfo.skills.map(item => item.name)
+    
     const axiosSecure = useAxiosSecure();
 
     const { data: trainerInfo = { skills: [], availableDay: [], availableTime: [] }, isPending } = useQuery({
@@ -39,14 +39,16 @@ const AddNewSlot = () => {
     const optionsDay = trainerInfo.availableDay;
     
     const optionsTime = trainerInfo.availableTime;
-
-    const {control, register,  handleSubmit, watch, formState: { errors } } = useForm();
+    const [...classNameArray] = trainerInfo.skills.map(item => item)
+    console.log(classNameArray);
+    const classOptions = classNameArray.map(skill => ({ value: skill, label: skill })) || [];
+    const {control, register, reset, handleSubmit, watch, formState: { errors } } = useForm();
     // const additionalInfo = {
     //     name: trainerInfo.name,
     //     age: trainerInfo.age
     // }
 
-    const onSubmit = (data) => {
+    const onSubmit = async(data) => {
          
         const selectedDays = watch("selectDay");
         const selectedTime = watch("selectTime");
@@ -56,7 +58,7 @@ const AddNewSlot = () => {
         console.log(data)
         const trainerId = trainerInfo._id;
         const trainerName = trainerInfo.name;
-        const email = trainerInfo.email;
+        const trainerEmail = trainerInfo.email;
         const age = trainerInfo.age;
         const bio = trainerInfo.bio;
         const classDurationHour = trainerInfo.classDurationHour;
@@ -65,13 +67,30 @@ const AddNewSlot = () => {
         const selectDay = data.selectDay;
         const selectTime = data.selectTime;
         const selectTraningClass = data.selectTraningClass;
-        const final = { ...data, age, bio, experiences, classDurationHour, trainerId,trainerName,email,selectDay, photoUrl, selectTime, selectTraningClass };
-        const newSlot = { class: selectTraningClass[0].value, day: selectDay[0].value, slot: selectTime[0].value};
+        // const final = { ...data, age, bio, experiences, classDurationHour, trainerId,trainerName,email,selectDay, photoUrl, selectTime, selectTraningClass };
+        const newSlot = { trainerName, trainerId, trainerEmail, trainerClass: selectTraningClass.value, day: selectDay.value, slot: selectTime.value};
         console.log("New Slot---->")
         console.log(newSlot);
 
-        axiosSecure.put(`add-new-slot/${trainerInfo._id}`, newSlot)
-        .then(res=>console.log(res.data));
+        // axiosSecure.post(`/add-new-slot`, newSlot)
+        const classRes = await axiosSecure.post(`/add-new-slot`, newSlot);
+        console.log("class info has saved in db-->", classRes.data);
+            if(classRes.data.insertedId){
+                reset();
+                Swal.fire(`New Slot added`);
+            }
+        // .then(res=>{
+        //     if(res.data.insertedId>0){
+        //         reset();
+        //         Swal.fire({
+        //             position: 'top-end',
+        //             icon: 'success',
+        //             title: 'New Slot added',
+        //             showConfirmButton: false,
+        //             timer: 1000
+        //         });
+        //     }
+        // });
     }
 
 
@@ -222,7 +241,6 @@ const AddNewSlot = () => {
                                         <Select
                                             {...field}
                                             defaultValue={optionsDay}
-                                            isMulti
                                             options={optionsDay}
                                             className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                                         />
@@ -240,7 +258,6 @@ const AddNewSlot = () => {
                                     render={({ field }) => (
                                         <Select
                                             {...field}
-                                            isMulti
                                             options={optionsClassTime}
                                             className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                                         />
@@ -258,7 +275,6 @@ const AddNewSlot = () => {
                                     render={({ field }) => (
                                         <Select
                                             {...field}
-                                            isMulti
                                             options={classOptions}
                                             className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
                                         />
@@ -266,63 +282,6 @@ const AddNewSlot = () => {
                                 />
                             </div>
                         </div>
-                        {/* <Textarea
-                            {...register("bio")}
-                            value={trainerInfo.bio} readOnly
-                            size="md" label="Biography" />
-                        {errors.bio && <span className="text-sm text-red-500">this field is required</span>} */}
-                        {/* <div className='flex gap-2'>
-                            <div className='flex-1'>
-                                <Typography variant="h6" color="blue-gray" className="mb-3">
-                                    Training Class
-                                </Typography>
-                                <Controller
-                                    name="selectTraningClass"
-                                    control={control}
-                                    rules={{ required: true }}
-                                    render={({ field }) => (
-                                        <Select
-                                            {...field}
-                                            isMulti
-                                            options={classOptions}
-                                            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-                                        />
-                                    )}
-                                />
-                            </div>
-                            <div className='flex-1'>
-                                <Typography variant="h6" color="blue-gray" className="mb-3">
-                                    New Slot Name
-                                </Typography>
-                                <Input
-                                    {...register("newSlotName", { required: true })}
-                                    type="text"
-                                    size="lg"
-                                    placeholder="New slot name"
-                                    className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-                                    labelProps={{
-                                        className: "before:content-none after:content-none",
-                                    }}
-                                />
-                                {errors.newSlotName && <span className="text-sm text-red-500">Name field is required</span>}
-                            </div>
-                            <div className='flex-1'>
-                                <Typography variant="h6" color="blue-gray" className="mb-3">
-                                    New Slot Time (in hours)
-                                </Typography>
-                                <Input
-                                    {...register("newSlotTime", { required: true })}
-                                    type="number"
-                                    size="lg"
-                                    placeholder="new slot time in hour"
-                                    className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-                                    labelProps={{
-                                        className: "before:content-none after:content-none",
-                                    }}
-                                />
-                                {errors.newSlotTime && <span className="text-sm text-red-500">Name field is required</span>}
-                            </div>
-                        </div> */}
                     </div>
                     <Input
                         type="submit"

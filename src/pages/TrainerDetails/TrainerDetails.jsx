@@ -1,15 +1,33 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Card, CardFooter, Chip, List, ListItem, Tooltip, Typography } from '@material-tailwind/react';
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLoaderData } from 'react-router-dom';
 import buttonImg from '../../assets/bigLogo.png';
 import trainerBG from '../../assets/trainerBG.png';
 import { faFacebook, faTwitter, faInstagram, faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
+import { useQuery } from '@tanstack/react-query';
+import useAxiosPublic from '../../hooks/useAxiosPublic';
+import useAuth from '../../hooks/useAuth';
 
 const TrainerDetails = () => {
+    const {user} = useAuth();
     const trainer = useLoaderData();
+    const { name, url, skills, bio, experiences, socialIcons, _id, availableDay, availableTime, slots } = trainer.data;
+    const [slotInfo, setSlotInfo] = useState([]);
+    const axiosPublic = useAxiosPublic();
+
+    const { data: trainerSlots = [] } = useQuery({
+        queryKey: ['trainerSlots'],
+        queryFn: async () => {
+            const res = await axiosPublic.get(`/all-slots/${user.email}`);
+            return res.data;  
+        }
+    })
+    // if(isPending){
+    //     return <h1>loading....</h1>
+    // }
     console.log(trainer.data);
-    const { name, category, url, skills, bio, experiences, socialIcons, _id, availableDay, availableTime } = trainer.data;
+    console.log("info-->", trainerSlots);
     return (
         <div>
             <div className='relative bg-[#e2ff31] bg-opacity-50 h-40 lg:h-48 flex flex-col justify-center items-center'>
@@ -141,8 +159,8 @@ const TrainerDetails = () => {
                         <div className="w-96">
                             <List>
                                 {
-                                    availableDay.map(item => <Link to={`/trainer-booking/${_id}`} className="text-initial">
-                                        <ListItem>{item.value} -- {availableTime.map(time => <ListItem>{time.value} -- 2 hr</ListItem>)}</ListItem>
+                                    trainerSlots.map(item => <Link to={`/trainer-booking/${item._id}`} className="bg-blue-100 text-initial">
+                                        <ListItem>{item.trainerClass} -- {item.day} -- {item.slot}--</ListItem>
                                     </Link>)
                                 }
                             </List>

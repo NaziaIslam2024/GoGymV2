@@ -3,11 +3,11 @@ import React from 'react';
 import useUser from '../../../hooks/useUser';
 import { Link } from 'react-router-dom';
 
-const TABLE_HEAD = ["Personal", "Skills", "Available-Slots", "Details"];
+const TABLE_HEAD = ["Personal", "Skills", "Available-Days", "Details"];
 
 const AppliedTrainer = () => {
     const [pendingTrainers, isPending] = useUser();
-    // console.log(pendingTrainers);
+    console.log(pendingTrainers);
     if (isPending) {
         return <div className='flex items-center justify-center mt-32'><h1 className='text-3xl text-gray-600'>Loading...</h1></div>
     }
@@ -61,10 +61,17 @@ const AppliedTrainer = () => {
                                             </div>
                                         </div>
                                     </td>
-                                    <td className={`${classes} bg-blue-gray-50/50`}>
+                                    {/* <td className={`${classes} bg-blue-gray-50/50`}>
                                         <Typography variant="small" color="blue-gray" className="font-normal">
                                             {
                                                 skills.map((skill, index) => <li key={index}>{skill}</li>)
+                                            }
+                                        </Typography>
+                                    </td> */}
+                                    <td className={`${classes} bg-blue-gray-50/50`}>
+                                        <Typography variant="small" color="blue-gray" className="font-normal">
+                                            {
+                                                skills
                                             }
                                         </Typography>
                                     </td>

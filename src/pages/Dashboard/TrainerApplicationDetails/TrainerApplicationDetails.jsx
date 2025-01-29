@@ -7,10 +7,26 @@ import Swal from 'sweetalert2';
 const TrainerApplicationDetails = () => {
     const trainerApplication = useLoaderData();
     const { name, url, age, availableDay, availableTime, bio, classDurationHour, email, experiences, role, skills, _id } = trainerApplication.data;
-   
+    console.log(trainerApplication.data)
+    const details = {trainerName:name, trainerPhoto:url, email: email, trainingClass: skills, availableDay:availableDay,availableTime:availableTime}
+    
     const handleConfirm = () => {
         axiosSecure.put(`/applied-trainer-details/${_id}`)
         .then(res => {
+            if(res.data.modifiedCount > 0){
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Application Approved',
+                    showConfirmButton: false,
+                    timer: 900
+                });
+            }
+        })
+        console.log(details)
+        axiosSecure.post(`/trainer-classinfo`, details)
+        .then(res => {
+            console.log(res.data)
             if(res.data.modifiedCount > 0){
                 Swal.fire({
                     position: 'top-end',
@@ -43,21 +59,21 @@ const TrainerApplicationDetails = () => {
                 <Typography variant="h4" color="blue-gray" className="mb-2">
                     {name}
                 </Typography>
-                <div className='flex justify-between'>
+                {/* <div className='flex justify-between'> */}
+                    <Typography variant="h6" color="blue-gray" className="mb-2 ">
+                        {email}
+                    </Typography>
                     <Typography variant="h6" color="blue-gray" className="mb-2">
                         Age: {age}
                     </Typography>
-                    <Typography variant="h6" color="blue-gray" className="mb-2 ">
-                        email: {email}
-                    </Typography>
-                </div>
+                {/* </div> */}
                 <Typography variant='paragraph' color="gray" className="mb-8 font-normal">
                     {bio}
                 </Typography>
                 <div className='flex justify-between'>
                     <Typography variant="h6" color="blue-gray" className="mb-2">
                         Skills:   {
-                            skills.map((skill, index) => <li className='font-normal' key={index}>{skill}</li>)
+                            skills
                         }
                     </Typography>
                     <Typography variant="h6" color="blue-gray" className="mb-2">

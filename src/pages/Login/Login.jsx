@@ -44,6 +44,9 @@ const Login = () => {
             // console.log(from)
             navigate(from, { replace: true });
         })
+        .catch(error => {
+            Swal.fire(error.message)
+        })
         
     };
 

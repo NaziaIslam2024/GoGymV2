@@ -18,26 +18,29 @@ const optionsDay = [
     { value: 'Thursday', label: 'Thursday' },
 ];
 const optionsTime = [
-    { value: 'Morning', label: 'Morning' },
-    { value: 'Afternoon', label: 'Afternoon' },
-    { value: 'Evening', label: 'Evening' }
+    { value: '7am - 8am', label: '7am - 8am' },
+    { value: '8am - 9am', label: '8am - 9am' },
+    { value: '9am - 10am', label: '9am - 10am' },
+    { value: '4pm - 5pm', label: '4pm - 5pm' },
+    { value: '5pm - 6pm', label: '5pm - 6pm' },
+    { value: '7pm - 8pm', label: '7pm - 8pm' },
+    { value: '8pm - 9pm', label: '8pm - 9pm' },
+    { value: '9pm - 10pm', label: '9pm - 10pm' },
 ];
 
-const checkboxOptions = ["HIIT Blast", "Yoga Flow", "Zumba Dance", "Pilates Core", "Barre Fitness", "CrossFil Fundamentals", "PowerLifting Basics", "Cardio Kickboxing", "Spin Cycle", "Meditation and Mindfulness", "Body Combat"];
-
 const BecomeTrainer = () => {
-    const axiosSecure=useAxiosSecure();
+    const axiosSecure = useAxiosSecure();
     const { user } = useAuth();
     const [gymClass] = useClassInfo();
     console.log(gymClass)
-    const nameOfClass = gymClass.map(item => item.name) 
+    const nameOfClass = gymClass.map(item => item.name)
     console.log(nameOfClass)
-    const { control, register, handleSubmit, reset, formState: { errors }, watch } = useForm();
+    const { control, register, handleSubmit, reset, formState: { errors }, watch } = useForm({});
     const onSubmit = data => {
         const selectedValues = watch("skills");
         const role = "pending";
         const trainerInfo = { ...data, role };
-        // console.log(trainerInfo);
+        console.log(selectedValues);
 
         axiosPublic.put(`/be-a-trainer/${user.email}`, trainerInfo)
             .then(res => {
@@ -134,7 +137,7 @@ const BecomeTrainer = () => {
                         <Typography variant="h6" color="blue-gray" className="">
                             Classes
                         </Typography>
-                        <div className='grid grid-cols-4'>
+                        {/* <div className='grid grid-cols-4'>
                             {nameOfClass.map((option, index) => (
                                 <label className='' key={index}>
                                     <input
@@ -147,7 +150,28 @@ const BecomeTrainer = () => {
                                 </label>
                             ))}
                             {errors.skills && <span className="text-sm text-red-500">you have to select skills</span>}
+                        </div> */}
+                        <div className='grid grid-cols-4'>
+                            {nameOfClass.map((option, index) => (
+                                <label className='' key={index}>
+                                    <input
+                                        className='mr-1'
+                                        type="radio"
+                                        value={option}
+                                        {...register("skills", { required: true })}
+                                    />
+                                    {option}
+                                </label>
+                            ))}
+                            {errors.skills && <span className="text-sm text-red-500">you have to select skills</span>}
                         </div>
+
+                        {/* <div className="flex gap-10">
+                            <Radio {...register("skills", { required: true })} type="radio" value="HIIT" color="green" ripple={true} />
+                            <Radio {...register("skills", { required: true })} type="radio" value="Y" color="green" ripple={true} />
+                            
+                        </div> */}
+
                         <div className='flex gap-2'>
                             <div className='flex-1'>
                                 <Typography variant="h6" color="blue-gray" className="mb-3">
@@ -226,7 +250,7 @@ const BecomeTrainer = () => {
                                 {errors.experiences && <span className="text-sm text-red-500">this field is required and should be number and greater than 0</span>}
                             </div>
                         </div>
-                        <Textarea  
+                        <Textarea
                             {...register("bio", { required: true })}
                             size="md" label="Biography" />
                         {errors.bio && <span className="text-sm text-red-500">this field is required</span>}

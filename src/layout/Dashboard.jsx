@@ -13,14 +13,18 @@ import useAuth from '../hooks/useAuth';
 import useRole from '../hooks/useRole';
 
 const Dashboard = () => {
+    const [isRole, isPending] = useRole();
+
     const navigate = useNavigate();
-    const [isRole] = useRole();
     console.log(isRole);
     const { logout, user } = useAuth();
 
     const handleLogout = () => {
         logout();
         navigate('/');
+    }
+    if(isPending){
+        return <h1>Loading....</h1>
     }
     return (
         <div className="flex">

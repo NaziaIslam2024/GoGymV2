@@ -67,9 +67,9 @@ const AppNavbar = () => {
                 color="blue-gray"
                 className="p-1 font-normal"
             >
-                <a href="#" className="flex items-center focus:bg-[#e2ff31] focus:p-2 focus:underline-offset-8 focus:text-black">
-                    COMMUNITY
-                </a>
+                <NavLink to='/community' className="uppercase flex items-center focus:bg-[#e2ff31] focus:p-2 focus:underline-offset-8 focus:text-black">
+                    Community
+                </NavLink>
             </Typography>
             {
                 user ? <>
@@ -93,14 +93,14 @@ const AppNavbar = () => {
                             USER PROFILE
                         </a>
                     </Typography>
-                    <Typography
+                    {/* <Typography
                         as="li"
                         variant="small"
                         color="blue-gray"
                         className="p-1 font-normal"
                     >
                         <Avatar src={user.photoURL} alt="avatar"></Avatar>
-                    </Typography>
+                    </Typography> */}
                     <div className="flex items-center gap-x-1">
                         <Link
                             variant="text"
@@ -131,7 +131,7 @@ const AppNavbar = () => {
 
     return (
         <Navbar className="sticky border-none top-0 z-20 h-max max-w-full rounded-none px-4 py-0 lg:px-8">
-            <div className="flex items-center justify-between text-blue-gray-900">
+            <div className="max-w-7xl mx-auto flex items-center justify-between text-blue-gray-900">
                 <Typography
                     as="a"
                     href="#"
@@ -183,6 +183,9 @@ const AppNavbar = () => {
                         )}
                     </IconButton>
                 </div>
+                {user &&
+                    <div><Avatar src={user?.photoURL} alt="avatar"></Avatar></div>
+                }
             </div>
             <Collapse open={openNav}>
                 {navList}

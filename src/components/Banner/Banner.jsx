@@ -2,6 +2,7 @@ import { Carousel, Typography, Button } from "@material-tailwind/react";
 import slide2 from '../../assets/slider2.jpg';
 import slide3 from '../../assets/slide3.jpg';
 import slide1 from '../../assets/slide1.jpg';
+import { Link } from "react-router-dom";
 
 const Banner = () => {
     return (
@@ -12,7 +13,8 @@ const Banner = () => {
                     alt="banner img"
                     className="w-full h-full object-fill"
                 />
-                 <div className="absolute inset-0 grid h-full w-full items-center lg:items-start lg:pt-40 bg-gray-900 bg-opacity-80">
+                <div className="absolute inset-0 grid h-full w-full items-center lg:items-start lg:pt-40 bg-gray-900 bg-opacity-80">
+                    {/* <div className="w-3/4 pl-12 md:w-2/4 md:pl-20 lg:pl-32"> */}
                     <div className="w-3/4 pl-12 md:w-2/4 md:pl-20 lg:pl-32">
                         <Typography
                             variant="h1"
@@ -25,15 +27,14 @@ const Banner = () => {
                             variant="lead"
                             className="mb-12 opacity-80 text-gray-500 text-base"
                         >
-                           Welcome to Go Gym, where fitness meets excellence! Regular exercise is the cornerstone of a healthy lifestyle, boosting energy, improving mental well-being, and reducing the risk of chronic diseases. Our state-of-the-art facilities are designed to support your fitness journey, featuring top-notch equipment, spacious workout areas, and a variety of group classes tailored to all fitness levels. From personal training sessions with certified experts to modern amenities like saunas and recovery lounges, we’ve got everything you need to achieve your health and wellness goals. Join us today and take the first step toward a stronger, healthier, and happier you!
+                            Welcome to Go Gym, where fitness meets excellence! Regular exercise is the cornerstone of a healthy lifestyle, boosting energy, improving mental well-being, and reducing the risk of chronic diseases. Our state-of-the-art facilities are designed to support your fitness journey, featuring top-notch equipment, spacious workout areas, and a variety of group classes tailored to all fitness levels. From personal training sessions with certified experts to modern amenities like saunas and recovery lounges, we’ve got everything you need to achieve your health and wellness goals. Join us today and take the first step toward a stronger, healthier, and happier you!
                         </Typography>
                         <div className="flex gap-2">
-                            <Button size="lg" color="white" className="bg-[#e2ff31]">
-                                Explore
-                            </Button>
-                            <Button size="lg" color="white" variant="text">
-                                Gallery
-                            </Button>
+                            <Link to='/training-classes'>
+                                <Button size="lg" color="white" className="bg-[#e2ff31]">
+                                    Explore Training Classes
+                                </Button>
+                            </Link>
                         </div>
                     </div>
                 </div>

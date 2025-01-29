@@ -3,6 +3,7 @@ import React from 'react';
 
 const ClassCard = ({ classItem }) => {
     const { _id, name, classImg, details, bookingCount } = classItem;
+    const truncateDEtails =  details.split(" ").slice(0, 20).join(" ") + "...";
     return (
         <Card className="max-w-[24rem] overflow-hidden">
             <CardHeader
@@ -12,6 +13,7 @@ const ClassCard = ({ classItem }) => {
                 className="m-0 rounded-none"
             >
                 <img
+                    className='h-[250px] w-full'
                     src={classImg}
                     alt="class image"
                 />
@@ -21,7 +23,7 @@ const ClassCard = ({ classItem }) => {
                     {name}
                 </Typography>
                 <Typography variant="lead" color="gray" className="mt-3 font-normal">
-                    {details}
+                    {truncateDEtails}
                 </Typography>
             </CardBody>
             <CardFooter className="flex items-end justify-between">

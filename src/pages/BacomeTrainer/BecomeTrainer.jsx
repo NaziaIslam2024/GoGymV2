@@ -1,10 +1,12 @@
 import { Card, Input, Textarea, Typography } from '@material-tailwind/react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useAuth from '../../hooks/useAuth';
 import { Controller, useForm } from 'react-hook-form';
 import Select from 'react-select';
-import { axiosSecure } from '../../hooks/useAxiosSecure';
+import useAxiosSecure, { axiosSecure } from '../../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
+import useClassInfo from '../../hooks/useClassInfo';
+import { axiosPublic } from '../../hooks/useAxiosPublic';
 
 const optionsDay = [
     { value: 'Friday', label: 'Friday' },
@@ -21,11 +23,15 @@ const optionsTime = [
     { value: 'Evening', label: 'Evening' }
 ];
 
-const checkboxOptions = ["HIIT Blast", "Yoga Flow", "Zumba Dance", "Pilates Core", "Barre Fitness", "CrossFil Fundamentals", "PowerLifting Basics", "Cardio Kickboxing", "Barre Fitness", "Spin Cycle", "Meditation and Mindfulness", "Body Combat"];
+const checkboxOptions = ["HIIT Blast", "Yoga Flow", "Zumba Dance", "Pilates Core", "Barre Fitness", "CrossFil Fundamentals", "PowerLifting Basics", "Cardio Kickboxing", "Spin Cycle", "Meditation and Mindfulness", "Body Combat"];
 
 const BecomeTrainer = () => {
-
+    const axiosSecure=useAxiosSecure();
     const { user } = useAuth();
+    const [gymClass] = useClassInfo();
+    console.log(gymClass)
+    const nameOfClass = gymClass.map(item => item.name) 
+    console.log(nameOfClass)
     const { control, register, handleSubmit, reset, formState: { errors }, watch } = useForm();
     const onSubmit = data => {
         const selectedValues = watch("skills");
@@ -33,7 +39,7 @@ const BecomeTrainer = () => {
         const trainerInfo = { ...data, role };
         // console.log(trainerInfo);
 
-        axiosSecure.put(`/be-a-trainer/${user.email}`, trainerInfo)
+        axiosPublic.put(`/be-a-trainer/${user.email}`, trainerInfo)
             .then(res => {
                 if (res.data.modifiedCount > 0) {
                     reset();
@@ -126,10 +132,10 @@ const BecomeTrainer = () => {
                             </div>
                         </div>
                         <Typography variant="h6" color="blue-gray" className="">
-                            Skills
+                            Classes
                         </Typography>
                         <div className='grid grid-cols-4'>
-                            {checkboxOptions.map((option, index) => (
+                            {nameOfClass.map((option, index) => (
                                 <label className='' key={index}>
                                     <input
                                         className='mr-1'

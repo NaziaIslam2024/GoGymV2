@@ -31,7 +31,7 @@ const Newsletter = () => {
     return (
         <div className='bg-[#e2ff31] bg-opacity-50 flex flex-col lg:flex-row lg:gap-10 p-10 items-center'>
             <div className='lg:w-1/2 text-center lg:text-right p-2'>
-                <h1 className='mt-10 text-2xl lg:text-5xl font-bold libreFranklin lg:mt-20 uppercase'>Be the First to Know About Our Latest Updates</h1>
+                <h1 className='mt-10 text-2xl lg:text-5xl font-bold libreFranklin lg:mt-20 uppercase'>Newsletter Subscribe!!!</h1>
             </div>
             <div className=''>
                 <form onSubmit={handleSubmit(onSubmit)} className="w-80 max-w-screen-lg sm:w-96">
@@ -69,7 +69,7 @@ const Newsletter = () => {
                         type="submit"
                         value="Subscribe Now"
                         size="lg"
-                        className="mt-4 text-[#e2ff31] !bg-black !border-t-blue-gray-200 focus:!border-t-gray-900"
+                        className="mt-4 !text-[#e2ff31] !bg-black !border-t-blue-gray-200 focus:!border-t-gray-900"
                         labelProps={{
                             className: "before:content-none after:content-none",
                         }}

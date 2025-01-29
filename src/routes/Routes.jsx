@@ -84,27 +84,27 @@ export const router = createBrowserRouter([
         children: [
             {
                 path: 'newsletterSubscribers',
-                element: <AllNewsletterSubscribes></AllNewsletterSubscribes>,
+                element: <PrivateRoutes><AllNewsletterSubscribes></AllNewsletterSubscribes></PrivateRoutes>,
             },
             {
                 path: 'add-class',
-                element: <AddClass></AddClass>
+                element: <PrivateRoutes><AddClass></AddClass></PrivateRoutes>
             },
             {
                 path: 'financial',
-                element: <Finance></Finance>
+                element: <PrivateRoutes><Finance></Finance></PrivateRoutes>
             },
             {
                 path: 'applied-trainer',
-                element: <AppliedTrainer></AppliedTrainer>
+                element: <PrivateRoutes><AppliedTrainer></AppliedTrainer></PrivateRoutes>
             },
             {
                 path: 'all-trainer',
-                element: <AllTrainers></AllTrainers>
+                element: <PrivateRoutes><AllTrainers></AllTrainers></PrivateRoutes>
             },
             {
                 path: '/dashboard/applied-trainer-details/:id',
-                element: <TrainerApplicationDetails></TrainerApplicationDetails>,
+                element: <PrivateRoutes><TrainerApplicationDetails></TrainerApplicationDetails></PrivateRoutes>,
                 loader: ({ params }) => axiosSecure.get(`/trainers/${params.id}`)
             },
             //trainer dashboard

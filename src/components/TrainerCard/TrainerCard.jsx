@@ -30,7 +30,7 @@ const TrainerCard = ({ trainer }) => {
                 <Typography variant="h4" color="blue-gray" className="mb-2 flex flex-col space-y-2">
                    
                     {
-                        skills.map(item => <Chip variant="outlined"  value={item} /> )
+                        skills.map((item, i) => <Chip key={i} variant="outlined"  value={item} /> )
                     }
                 </Typography>
                 <Typography color="blue-gray" className="font-medium" textGradient>
@@ -42,7 +42,7 @@ const TrainerCard = ({ trainer }) => {
                 <div className="flex gap-6 mt-3 items-center">
                     <Typography className="text-black" textGradient>
                         {
-                            availableDay.map(time => <li className="flex">
+                            availableDay.map((time,i) => <li key={i} className="flex">
                                 <FaCalendarDays className="text-lg mr-2 text-blue-gray-200" />
                                 {time.value}
                             </li>)
@@ -50,7 +50,7 @@ const TrainerCard = ({ trainer }) => {
                     </Typography>
                     <Typography className="text-black" textGradient>
                         {
-                            availableTime.map(time => <li className="flex">
+                            availableTime.map((time,i) => <li key={i} className="flex">
                                 <LuAlarmClock className="text-lg mr-2 text-blue-gray-200" />
                                 {time.value}
                             </li>)

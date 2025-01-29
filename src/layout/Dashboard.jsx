@@ -16,7 +16,7 @@ const Dashboard = () => {
     const navigate = useNavigate();
     const [isRole] = useRole();
     console.log(isRole);
-    const { logout } = useAuth();
+    const { logout, user } = useAuth();
 
     const handleLogout = () => {
         logout();
@@ -32,7 +32,7 @@ const Dashboard = () => {
                 </div>
                 <ul className="menu bg-[#e2ff31] bg-opacity-40 h-[500px] pt-10">
                     <List>
-                        {isRole === 'admin' &&
+                        {user && isRole === 'admin' &&
                             <>
                                 <Link to='financial'>
                                     <ListItem>

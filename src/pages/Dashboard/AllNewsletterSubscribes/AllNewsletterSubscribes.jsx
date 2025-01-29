@@ -3,7 +3,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { Card, Typography } from "@material-tailwind/react";
 
 
-const TABLE_HEAD = ["Name", "Email", ""];
+const TABLE_HEAD = ["Name", "Email"];
 
 const AllNewsletterSubscribes = () => {
     const axiosSecure = useAxiosSecure();
@@ -52,11 +52,6 @@ const AllNewsletterSubscribes = () => {
                                     <td className={`${classes} bg-blue-gray-50/50`}>
                                         <Typography variant="small" color="blue-gray" className="font-normal">
                                             {email}
-                                        </Typography>
-                                    </td>
-                                    <td className={`${classes}`}>
-                                        <Typography as="a" href="#" variant="small" color="blue-gray" className="font-medium">
-                                            Edit
                                         </Typography>
                                     </td>
                                 </tr>

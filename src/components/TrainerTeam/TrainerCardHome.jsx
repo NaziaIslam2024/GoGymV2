@@ -9,7 +9,8 @@ import {
 } from "@material-tailwind/react";
 
 const TrainerCardHome = ({ trainer }) => {
-    const { name, category, url, bio } = trainer;
+    console.log(trainer)
+    const { name, category, url, bio, skills } = trainer;
     const truncateBio =  bio.split(" ").slice(0, 20).join(" ") + "...";
     return (
         <div>
@@ -20,7 +21,12 @@ const TrainerCardHome = ({ trainer }) => {
                 <CardBody className="text-left">
                     <Typography variant="h4" color="blue-gray" className="mb-2 flex justify-between items-center">
                         <span>{name}</span>
-                        <Chip value={category} />
+                        
+                    </Typography>
+                    <Typography variant="h4" color="blue-gray" className="mb-2 flex justify-between items-center">
+                        <div className="grid grid-cols-2 gap-1">
+                        {skills.map(skill =><Chip value={skill} />)} 
+                        </div>
                     </Typography>
                     <Typography color="blue-gray" className="font-medium" textGradient>
                         {truncateBio}

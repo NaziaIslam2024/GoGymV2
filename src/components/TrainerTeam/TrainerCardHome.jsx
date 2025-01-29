@@ -25,7 +25,7 @@ const TrainerCardHome = ({ trainer }) => {
                     </Typography>
                     <Typography variant="h4" color="blue-gray" className="mb-2 flex justify-between items-center">
                         <div className="grid grid-cols-2 gap-1">
-                        {skills.map(skill =><Chip value={skill} />)} 
+                        {skills} 
                         </div>
                     </Typography>
                     <Typography color="blue-gray" className="font-medium" textGradient>

@@ -79,6 +79,14 @@ const Dashboard = () => {
                                         Newsletter Subscribers
                                     </ListItem>
                                 </Link>
+                                <Link to='forum-page'>
+                                    <ListItem>
+                                        <ListItemPrefix>
+                                            {/* <InboxIcon className="h-5 w-5" /> */}
+                                        </ListItemPrefix>
+                                        Forum
+                                    </ListItem>
+                                </Link>
                             </>
                         }
                         {
@@ -100,12 +108,12 @@ const Dashboard = () => {
                                         Add New Slot
                                     </ListItem>
                                 </Link>
-                                <Link to='all-trainer'>
+                                <Link to='forum-page'>
                                     <ListItem>
                                         <ListItemPrefix>
                                             {/* <InboxIcon className="h-5 w-5" /> */}
                                         </ListItemPrefix>
-                                        Add New Forum
+                                        Forum
                                     </ListItem>
                                 </Link>
                             </>

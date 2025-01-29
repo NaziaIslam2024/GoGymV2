@@ -26,6 +26,8 @@ import Payment from "../pages/Payment/Payment";
 import MemberActivityLog from "../pages/Dashboard/Member/MemberActivityLog/MemberActivityLog";
 import MemberProfile from "../pages/Dashboard/Member/MemberProfile/MemberProfile";
 import BookedTrainer from "../pages/Dashboard/Member/BookedTrainer/BookedTrainer";
+import AddForum from "../pages/Dashboard/AddForum/AddForum";
+import SingleBlogDetails from "../pages/SingleBlogDetails/SingleBlogDetails";
 
 export const router = createBrowserRouter([
     {
@@ -43,6 +45,11 @@ export const router = createBrowserRouter([
             {
                 path: 'training-classes',
                 element: <ClassesHome></ClassesHome>
+            },
+            {
+                path: 'single-blog-detail/:id',
+                element: <SingleBlogDetails></SingleBlogDetails>,
+                // loader
             },
             {
                 path:'/be-a-trainer',
@@ -97,6 +104,10 @@ export const router = createBrowserRouter([
             {
                 path: 'applied-trainer',
                 element: <PrivateRoutes><AppliedTrainer></AppliedTrainer></PrivateRoutes>
+            },
+            {
+                path: 'forum-page',
+                element: <PrivateRoutes><AddForum></AddForum></PrivateRoutes>
             },
             {
                 path: 'all-trainer',

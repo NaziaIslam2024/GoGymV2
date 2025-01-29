@@ -162,7 +162,7 @@ const AddNewSlot = () => {
                                     Your age
                                 </Typography>
                                 <Input
-                                    {...register("age")}
+                                    {...register("age", { required: true })}
                                     type="number"
                                     value={trainerInfo.age} readOnly
                                     size="lg"

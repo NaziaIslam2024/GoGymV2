@@ -13,7 +13,7 @@ const ManageSlots = () => {
     const { isPending, data: trainerSlots = [], refetch } = useQuery({
         queryKey: ['trainerSlots'],
         queryFn: async () => {
-            const res = await axiosSecure.get(`/all-slots/${user.email}`);
+            const res = await axiosSecure.get(`/manage-slots/${user.email}`);
             return res.data;
         }
     })
@@ -21,7 +21,7 @@ const ManageSlots = () => {
     if(isPending){
         return <h1>loading....</h1>
     }
-    // console.log("info-->", trainerSlots);
+    console.log("info-->", trainerSlots);
 
     const handleDelete = (id) => {
         Swal.fire({
@@ -130,7 +130,7 @@ const ManageSlots = () => {
                                             </td>
                                             <td className={`${classes}`}>
                                                 <Typography variant="small" color="blue-gray" className="font-normal">
-                                                pore korbo
+                                                
                                                 </Typography>
                                             </td>
                                             <td className={`${classes}`}>

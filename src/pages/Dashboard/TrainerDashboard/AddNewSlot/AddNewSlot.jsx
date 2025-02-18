@@ -39,9 +39,10 @@ const AddNewSlot = () => {
     const optionsDay = trainerInfo.availableDay;
     
     const optionsTime = trainerInfo.availableTime;
-    const [...classNameArray] = trainerInfo.skills.map(item => item)
+    const [classNameArray] = trainerInfo.skills
     // console.log(classNameArray);
-    const classOptions = classNameArray.map(skill => ({ value: skill, label: skill })) || [];
+    // const classOptions = classNameArray.map(skill => ({ value: skill, label: skill })) || [];
+    const classOptions = [{ value: trainerInfo.skills, label: trainerInfo.skills }];
     const {control, register, reset, handleSubmit, watch, formState: { errors } } = useForm();
     // const additionalInfo = {
     //     name: trainerInfo.name,
@@ -162,7 +163,7 @@ const AddNewSlot = () => {
                                     Your age
                                 </Typography>
                                 <Input
-                                    {...register("age", { required: true })}
+                                    {...register("age")}
                                     type="number"
                                     value={trainerInfo.age} readOnly
                                     size="lg"
@@ -178,6 +179,20 @@ const AddNewSlot = () => {
                             Skills
                         </Typography>
                         <div className='grid grid-cols-4'>
+                            
+                            <label className=''>
+                                    <input
+                                        className='mr-1'
+                                        type="checkbox"
+                                        value={checkboxOption}
+                                        checked
+                                        {...register("skills")}
+                                    />
+                                    {checkboxOption}
+                                </label>
+                            {errors.skills && <span className="text-sm text-red-500">you have to select skills</span>}
+                        </div>
+                        {/* <div className='grid grid-cols-4'>
                             {checkboxOption.map((option, index) => (
                                 <label className='' key={index}>
                                     <input
@@ -191,7 +206,7 @@ const AddNewSlot = () => {
                                 </label>
                             ))}
                             {errors.skills && <span className="text-sm text-red-500">you have to select skills</span>}
-                        </div>
+                        </div> */}
                         <div className='flex gap-2'>
                             <div className='flex-1'>
                                 <Typography variant="h6" color="blue-gray" className="mb-3">

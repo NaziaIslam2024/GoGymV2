@@ -10,6 +10,7 @@ import {
     Chip,
 } from "@material-tailwind/react";
 import { Link } from 'react-router-dom';
+
 const ForumPosts = () => {
     const axiosPublic = useAxiosPublic();
     const { data: blogDetails = [] } = useQuery({
@@ -20,7 +21,7 @@ const ForumPosts = () => {
             return res.data;
         }
     })
-    // const truncateDEtails =  blogDetails.myBlog.split(" ").slice(0, 20).join(" ") + "...";
+    
     return (
         <div className='lg:max-w-5xl lg:mx-auto text-center items-center p-2 mb-10'>
             <div className='lg:max-w-5xl lg:mx-auto text-center items-center p-2'>
@@ -28,7 +29,7 @@ const ForumPosts = () => {
             </div>
             <div className='grid grid-cols-1 gap-3'>
                 {
-                    blogDetails.map(item =>
+                    blogDetails.slice().reverse().map(item =>
                         <Card className="w-full max-w-5xl flex-row">
                             <CardHeader
                                 shadow={false}

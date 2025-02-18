@@ -49,7 +49,7 @@ export const router = createBrowserRouter([
             {
                 path: 'single-blog-detail/:id',
                 element: <SingleBlogDetails></SingleBlogDetails>,
-                // loader
+                loader: ({params}) => axiosPublic.get(`/single-blog/${params.id}`)
             },
             {
                 path:'/be-a-trainer',

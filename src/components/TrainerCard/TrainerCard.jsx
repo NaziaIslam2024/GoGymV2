@@ -28,10 +28,7 @@ const TrainerCard = ({ trainer }) => {
                     <span>{name}</span>
                 </Typography>
                 <Typography variant="h4" color="blue-gray" className="mb-2 flex flex-col space-y-2">
-                   
-                    {
-                        skills.map((item, i) => <Chip key={i} variant="outlined"  value={item} /> )
-                    }
+                  {skills}
                 </Typography>
                 <Typography color="blue-gray" className="font-medium" textGradient>
                     {truncateBio}

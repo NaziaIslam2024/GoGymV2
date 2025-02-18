@@ -17,7 +17,7 @@ const AddForum = () => {
     const onSubmit = async (data) => {
         console.log(data)
 
-        const blogDetails = { ...data, userType: isRole, userInfo: user.email, postingDate: new Date() }
+        const blogDetails = { ...data, userType: isRole, userInfo: user.email, postingDate: new Date(), vote:0 }
         console.log(blogDetails)
         const res = await axiosSecure.post('/blogs', blogDetails);
         if (res.data.insertedId) {

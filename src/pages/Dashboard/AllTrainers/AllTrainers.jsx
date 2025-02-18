@@ -56,98 +56,91 @@ const AllTrainers = () => {
     }
 
     return (
-        <>
-            {
-                trainers.length === 0 ?
-                    <div className='flex justify-center'> <h1 className='text-gray-600 text-5xl mt-40'>No data available</h1></div>
-                    :
-                    <div className="max-w-5xl mx-auto">
-                        <div className='my-10 flex justify-center items-center'>
-                            <h1 className='text-2xl font-bold'>Total Trainers:  {trainers.length}</h1>
-                        </div>
-                        <Card className="rounded-none h-full w-full overflow-scroll">
-                            <table className="w-full min-w-max table-auto text-left">
-                                <thead>
-                                    <tr>
-                                        {TABLE_HEAD.map((head) => (
-                                            <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+        <div className="max-w-5xl mx-auto">
+            <div className='my-10 flex justify-center items-center'>
+                <h1 className='text-2xl font-bold'>Total Trainers:  {trainers.length}</h1>
+            </div>
+            <Card className="rounded-none h-full w-full overflow-scroll">
+                <table className="w-full min-w-max table-auto text-left">
+                    <thead>
+                        <tr>
+                            {TABLE_HEAD.map((head) => (
+                                <th key={head} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                                    <Typography
+                                        variant="small"
+                                        color="blue-gray"
+                                        className="font-normal leading-none opacity-70"
+                                    >
+                                        {head}
+                                    </Typography>
+                                </th>
+                            ))}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {trainers.length>0 && 
+                        trainers.map(({ _id, name, email, url, availableDay, availableTime, skills, classDurationHour }, index) => {
+                            const isLast = index === trainers.length - 1;
+                            const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
+
+                            return (
+                                <tr key={url}>
+                                    <td className={classes}>
+                                        <div className="flex items-center gap-3">
+                                            <Avatar src={url} alt={name} size="sm" />
+                                            <div className="flex flex-col">
                                                 <Typography
                                                     variant="small"
                                                     color="blue-gray"
-                                                    className="font-normal leading-none opacity-70"
+                                                    className="font-normal"
                                                 >
-                                                    {head}
+                                                    {name}
                                                 </Typography>
-                                            </th>
-                                        ))}
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {trainers.map(({ _id, name, email, url, availableDay, availableTime, skills, classDurationHour }, index) => {
-                                        const isLast = index === trainers.length - 1;
-                                        const classes = isLast ? "p-4" : "p-4 border-b border-blue-gray-50";
+                                                <Typography
+                                                    variant="small"
+                                                    color="blue-gray"
+                                                    className="font-normal opacity-70"
+                                                >
+                                                    {email}
+                                                </Typography>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td className={classes}>
+                                        <Typography variant="small" color="blue-gray" className="font-normal">
+                                            {availableDay.map((day, idx) => <li key={idx}>{day.value}</li>)}
+                                        </Typography>
+                                    </td>
+                                    <td className={classes}>
+                                        <Typography variant="small" color="blue-gray" className="font-normal">
+                                            {availableTime.map((time, idx) => <li key={idx}>{time.value}</li>)}
+                                        </Typography>
+                                    </td>
+                                    <td className={`${classes}`}>
+                                        <Typography variant="small" color="blue-gray" className="font-normal">
+                                            {classDurationHour} hours
+                                        </Typography>
+                                    </td>
+                                    <td className={`${classes}`}>
+                                        <Typography variant="small" color="blue-gray" className="font-normal">
+                                            {skills}
+                                        </Typography>
+                                    </td>
+                                    <td className={`${classes}`}>
+                                        <Tooltip content="Delete User">
+                                            <IconButton onClick={() => handleDelete(_id)} className='text-lg' color="red" variant="text">
+                                                <AiTwotoneDelete />
+                                            </IconButton>
+                                        </Tooltip>
+                                    </td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
+            </Card>
 
-                                        return (
-                                            <tr key={url}>
-                                                <td className={classes}>
-                                                    <div className="flex items-center gap-3">
-                                                        <Avatar src={url} alt={name} size="sm" />
-                                                        <div className="flex flex-col">
-                                                            <Typography
-                                                                variant="small"
-                                                                color="blue-gray"
-                                                                className="font-normal"
-                                                            >
-                                                                {name}
-                                                            </Typography>
-                                                            <Typography
-                                                                variant="small"
-                                                                color="blue-gray"
-                                                                className="font-normal opacity-70"
-                                                            >
-                                                                {email}
-                                                            </Typography>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td className={classes}>
-                                                    <Typography variant="small" color="blue-gray" className="font-normal">
-                                                        {availableDay.map((day, idx) => <li key={idx}>{day.value}</li>)}
-                                                    </Typography>
-                                                </td>
-                                                <td className={classes}>
-                                                    <Typography variant="small" color="blue-gray" className="font-normal">
-                                                        {availableTime.map((time, idx) => <li key={idx}>{time.value}</li>)}
-                                                    </Typography>
-                                                </td>
-                                                <td className={`${classes}`}>
-                                                    <Typography variant="small" color="blue-gray" className="font-normal">
-                                                        {classDurationHour} hours
-                                                    </Typography>
-                                                </td>
-                                                <td className={`${classes}`}>
-                                                    <Typography variant="small" color="blue-gray" className="font-normal">
-                                                    {skills.map((skill, idx) => <li key={idx}>{skill}</li>)}
-                                                    </Typography>
-                                                </td>
-                                                <td className={`${classes}`}>
-                                                    <Tooltip content="Delete User">
-                                                        <IconButton onClick={() => handleDelete(_id)} className='text-lg' color="red" variant="text">
-                                                            <AiTwotoneDelete />
-                                                        </IconButton>
-                                                    </Tooltip>
-                                                </td>
-                                            </tr>
-                                        );
-                                    })}
-                                </tbody>
-                            </table>
-                        </Card>
-
-                    </div>
-
-            }
-        </>
+        </div>
     );
 };
 

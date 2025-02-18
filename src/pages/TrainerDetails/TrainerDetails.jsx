@@ -38,58 +38,6 @@ const TrainerDetails = () => {
                 </div>
             </div>
             <div className='mt-36 text-gray-600 p-2 md:p-4 lg:max-w-5xl lg:mx-auto'>
-                {/* <CardFooter className="flex justify-center gap-7 pt-2">
-                    <Tooltip content="Like">
-                        <Typography
-                            as="a"
-                            href={socialIcons.facebook}
-                            variant="lead"
-                            color="blue"
-                            textGradient
-                        >
-                            <FontAwesomeIcon icon={faFacebook} className="text-black text-2xl" />
-                        </Typography>
-                    </Tooltip>
-                    {socialIcons.twitter &&
-                        <Tooltip content="Follow">
-                            <Typography
-                                as="a"
-                                href={socialIcons.twitter}
-                                variant="lead"
-                                color="light-blue"
-                                textGradient
-                            >
-                                <FontAwesomeIcon icon={faTwitter} className="text-black text-2xl" />
-                            </Typography>
-                        </Tooltip>
-                    }
-                    {socialIcons.instagram &&
-                        <Tooltip content="Follow">
-                            <Typography
-                                as="a"
-                                href={socialIcons.instagram}
-                                variant="lead"
-                                color="purple"
-                                textGradient
-                            >
-                                <FontAwesomeIcon icon={faInstagram} className="text-black text-2xl" />
-                            </Typography>
-                        </Tooltip>
-                    }
-                    {socialIcons.linkedin &&
-                        <Tooltip content="Follow">
-                            <Typography
-                                as="a"
-                                href={socialIcons.linkedin}
-                                variant="lead"
-                                color="purple"
-                                textGradient
-                            >
-                                <FontAwesomeIcon icon={faLinkedinIn} className="text-black text-2xl" />
-                            </Typography>
-                        </Tooltip>
-                    }
-                </CardFooter> */}
                 <p>{bio}</p>
                 <div className='flex mt-8 mx-10 flex-col-reverse lg:flex-row lg:justify-evenly'>
                     <div>
@@ -98,9 +46,7 @@ const TrainerDetails = () => {
                         </Typography>
                         <Typography variant="p" color="blue-gray" className="mb-2 space-y-2" textGradient>
                             <span>Skills: </span>
-                            {
-                                skills.map(item => <Chip variant="outlined" value={item} />)
-                            }
+                            {skills}
                         </Typography>
                         {/* <CardFooter className="flex justify-center gap-7 pt-2">
                             <Tooltip content="Like">

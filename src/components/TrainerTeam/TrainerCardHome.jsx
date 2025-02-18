@@ -23,10 +23,8 @@ const TrainerCardHome = ({ trainer }) => {
                         <span>{name}</span>
                         
                     </Typography>
-                    <Typography variant="h4" color="blue-gray" className="mb-2 flex justify-between items-center">
-                        <div className="grid grid-cols-2 gap-1">
-                        {skills} 
-                        </div>
+                    <Typography variant="" color="blue-gray" className="mb-2 flex justify-between items-center">
+                        {skills}
                     </Typography>
                     <Typography color="blue-gray" className="font-medium" textGradient>
                         {truncateBio}

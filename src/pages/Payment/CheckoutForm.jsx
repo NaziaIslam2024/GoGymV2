@@ -92,6 +92,7 @@ const CheckoutForm = ({paymentDetails}) => {
                     transactionId: paymentIntent.id,
                     slotId: paymentDetails.data.slotId,
                     trainerId: paymentDetails.data.trainerId,
+                    paymentDetails: paymentDetails.data
                 }
 
                 const res = await axiosSecure.post('/save-payment', payment)

@@ -15,11 +15,11 @@ import self from '../../assets/self-care.png'
 const Features = () => {
     return (
         <div>
-            <div className='lg:max-w-5xl lg:mx-auto text-center items-center'>
+            <div className='lg:max-w-7xl lg:mx-auto text-center items-center'>
                 <h1 className='text-5xl font-bold libreFranklin mt-20'>FIND WHAT MOVES YOU</h1>
                 <p className='text-gray-600 my-6'>Whether you’re a complete beginner or you want to step up your routine, get the full studio experience at home with thousands of classes for body, mind, and spirit.</p>
             </div>
-            <div className='max-w-6xl mx-auto mb-20'>
+            <div className='max-w-7xl mx-auto mb-20'>
                 <Swiper
                     slidesPerView={1}
                     spaceBetween={10}

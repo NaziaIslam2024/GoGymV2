@@ -7,16 +7,15 @@ import { FaArrowTrendUp } from "react-icons/fa6";
 
 const Banner = () => {
     return (
-        <Carousel className="max-h-[700px] overflow-y-hidden">
+        <Carousel className="max-h-[650px] max-w-7xl mx-auto overflow-y-hidden">
             <div className="relative h-full w-full">
                 <img
                     src={slide2}
                     alt="banner img"
                     className="w-full h-full object-fill"
                 />
-                <div className="absolute place-items-center inset-0 grid h-full w-full items-center pt-4 lg:pt-40 bg-gray-900 bg-opacity-80">
-                    {/* <div className="w-3/4 pl-12 md:w-2/4 md:pl-20 lg:pl-32"> */}
-                    <div className="w-3/4 md:w-2/4 md:pl-20 lg:pl-32 flex flex-col items-center text-center">
+                <div className="absolute place-items-center inset-0 grid h-full w-full items-center pt-4 lg:pt-0 bg-gray-900 bg-opacity-80">
+                    <div className="w-3/4 md:w-2/4 flex flex-col items-center text-center">
                         <Typography
                             variant="h1"
                             color="white"
@@ -26,7 +25,7 @@ const Banner = () => {
                         </Typography>
                         <Typography
                             variant="lead"
-                            className="mb-12 opacity-80 text-gray-500 text-base hidden md:block"
+                            className="mb-0 lg:mb-4 opacity-80 text-gray-500 text-sm hidden md:block"
                         >
                             Welcome to Go Gym, where fitness meets excellence! Regular exercise is the cornerstone of a healthy lifestyle, boosting energy, improving mental well-being, and reducing the risk of chronic diseases. Our state-of-the-art facilities are designed to support your fitness journey, featuring top-notch equipment, spacious workout areas, and a variety of group classes tailored to all fitness levels. From personal training sessions with certified experts to modern amenities like saunas and recovery lounges, we’ve got everything you need to achieve your health and wellness goals. Join us today and take the first step toward a stronger, healthier, and happier you!
                         </Typography>

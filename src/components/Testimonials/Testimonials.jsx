@@ -34,7 +34,7 @@ const Testimonials = () => {
     }
     console.log("info-->", testi[0].member);
     return (
-        <div className='bgImg min-h-[400px] pb-10'>
+        <div className='lg:max-w-7xl lg:mx-auto bgImg min-h-[400px] pb-10'>
             <div className='lg:max-w-3xl lg:mx-auto p-1'>
                 <h1 className='my-10 text-white text-2xl lg:text-5xl text-center font-bold libreFranklin uppercase'>Your feedback</h1>
             </div>

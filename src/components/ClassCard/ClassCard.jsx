@@ -5,7 +5,7 @@ const ClassCard = ({ classItem }) => {
     const { _id, name, classImg, details, bookingCount } = classItem;
     const truncateDEtails =  details.split(" ").slice(0, 12).join(" ") + "...";
     return (
-        <Card className="max-w-[24rem] overflow-hidden">
+        <Card className="max-w-[310px] overflow-hidden">
             <CardHeader
                 floated={false}
                 shadow={false}

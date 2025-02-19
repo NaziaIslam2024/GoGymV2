@@ -28,7 +28,7 @@ const HomeForum = () => {
             <div className='lg:max-w-5xl lg:mx-auto text-center items-center p-2'>
                 <h1 className='mt-10 text-2xl lg:text-5xl font-bold libreFranklin lg:my-10 uppercase'>Go GYm Community Forum</h1>
             </div>
-            <div className='max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-3'>
+            <div className='max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3'>
                 {
                     blogDetails.slice().reverse().map((item, index) => 
                         <div key={index} className='flex'>

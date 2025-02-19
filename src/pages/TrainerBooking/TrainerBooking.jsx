@@ -50,7 +50,7 @@ const TrainerBooking = () => {
     }
     // console.log(packageName)
     // slot id, trainer id, user id, mem type, mem amount, payment status
-    const joinMemberInfo = {memberEmail: user.email,detailInfo: data, slotId: data._id, trainerId: data.trainerId, memberEmail: user.email, membership:packageName, payment: "initialize"}
+    const joinMemberInfo = {memberEmail: user.email,detailInfo: data, slotId: data._id, trainerId: data.trainerId, membership:packageName, payment: "initialize"}
     console.log( joinMemberInfo)
     const handleJoin = async() => {
 

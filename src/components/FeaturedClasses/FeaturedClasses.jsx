@@ -20,7 +20,7 @@ const FeaturedClasses = () => {
                         topClasses.slice(0, 4).map(classItem => <ClassCard classItem={classItem} key={classItem._id}></ClassCard>)
                     }
                 </div>
-                <div className=" flex justify-center gap-4 mt-4">
+                <div className="md:flex justify-center gap-4 mt-4">
                     {
                         topClasses.slice(4).map(classItem => <ClassCard classItem={classItem} key={classItem._id}></ClassCard>)
                     }

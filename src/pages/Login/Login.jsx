@@ -22,23 +22,53 @@ const Login = () => {
     const onSubmit = data => {
         // console.log(data);
         signInUser(data.email, data.password)
-        .then(result => {
+            .then(result => {
+                const user = result.user;
+                Swal.fire({
+                    title: "Login Successful",
+                    showClass: {
+                        popup: `
+                animate__animated
+                animate__fadeInUp
+                animate__faster
+                `
+                    },
+                    hideClass: {
+                        popup: `
+                animate__animated
+                animate__fadeOutDown
+                animate__faster
+                `
+                    }
+                });
+                // console.log(from)
+                navigate(from, { replace: true });
+            })
+            .catch(error => {
+                Swal.fire(error.message)
+            })
+
+    };
+
+    const handleAdminLogin = (email, password) => {
+        signInUser(email, password)
+          .then((result) => {
             const user = result.user;
             Swal.fire({
                 title: "Login Successful",
                 showClass: {
                     popup: `
-                animate__animated
-                animate__fadeInUp
-                animate__faster
-                `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+            `
                 },
                 hideClass: {
                     popup: `
-                animate__animated
-                animate__fadeOutDown
-                animate__faster
-                `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+            `
                 }
             });
             // console.log(from)
@@ -47,7 +77,6 @@ const Login = () => {
         .catch(error => {
             Swal.fire(error.message)
         })
-        
     };
 
     return (
@@ -67,6 +96,11 @@ const Login = () => {
                         <Typography color="gray" className="mt-1 font-normal">
                             Your fitness journey awaits. Log in now!
                         </Typography>
+                        <div className='mt-4'>
+                            <Button onClick={() => handleAdminLogin("admin@gogym.com", "aaaA1!")}>
+                                Admin Login
+                            </Button>
+                        </div>
                         <form onSubmit={handleSubmit(onSubmit)} className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
                             <div className="mb-1 flex flex-col gap-4 text-left">
                                 <Typography variant="h6" color="blue-gray" className="-mb-3">
